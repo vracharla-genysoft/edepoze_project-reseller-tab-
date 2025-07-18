@@ -1,0 +1,31 @@
+body {
+    font-family: source_sans_pro_regular, "Source Sans Pro", Arial, sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+    overflow-y: auto
+}
+
+body {
+    /*background: #FFF url(../img/body_bg.png) repeat-x 0 0;*/
+}
+
+body.login {
+    background: none;
+}
+
+.header {
+    /*background: url(../img/bg_footer.png) repeat-x left top;*/
+}
+
+h1 a {
+    background: url(../img/logo_white.png) no-repeat left top;
+    background-size: auto auto;
+    -moz-background-size: auto auto;
+    -webkit-background-size: auto auto;
+    float: left;
+    height: 73px;
+    outline: medium none;
+    overflow: hidden;
+    text-indent: -9999px;
+    width: 255px;
+}

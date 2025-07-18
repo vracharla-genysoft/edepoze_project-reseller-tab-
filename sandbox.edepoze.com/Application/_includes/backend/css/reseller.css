@@ -1,0 +1,51 @@
+body {
+    font-family: source_sans_pro_regular, "Source Sans Pro", Arial, sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+    overflow-y: auto
+}
+
+body.login,
+body.signup {
+    background-image: none;
+}
+
+.header {
+    background-color: #676767;
+}
+
+h1 {
+    padding-top: 11px;
+}
+
+.w_870 {
+    width: 870px !important;
+}
+
+.row textarea {
+    border: 1px solid #00a5e4;
+}
+
+.row textarea.error {
+    background: url("../img/fon_large_sprite.png") repeat scroll 0 -104px transparent;
+}
+
+h2.auth_logo.reseller_logo {
+    margin: 0 auto;
+    width: 265px;
+    height: 65px;
+    background-size: 344px 114px;
+    -moz-background-size: 344px 114px;
+    -webkit-background-size: 344px 114px
+}
+
+h2.auth_logo.reseller_logo a {
+    background: url("../img/logo_header.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 85px;
+    text-decoration: none;
+    text-indent: -9999px;
+    width: 304px;
+    background-size: contain;
+    margin-top: 10px;
+}

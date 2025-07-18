@@ -1,0 +1,496 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta content="text/javascript" http-equiv="Content-Script-Type" />
+    <title>Web Manager</title>
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/asset/css/AdminLTE.min.css" rel="stylesheet" />
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/asset/css/custom-admin.css" rel="stylesheet" />
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/css/fonts.css" rel="stylesheet" />
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/css/common.css" rel="stylesheet" />
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/css/reseller.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/controls.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/common/js/popup.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/ajax.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/jquery/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/polyfills.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/js/sha1.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/js/jquery.mb.browser.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/js/matomotracker.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/validators.js"></script>
+</head>
+<body runat="server" data-fullid="page" class="login" id="page686f5ac736d96">
+    <div runat="server" data-fullid="mainform" class="content_top" id="mainform686f5ac736c72">
+        <div runat="server" data-fullid="mainform.confirmDialog" style="display:none;" class="popup" id="confirmDialog686f5ac736f6b">
+            <div class="shadow-popup"></div>
+            <div class="wrap-popup">
+                <div class="popup">
+                    <div class="top">
+                        <div class="right">
+                            <div class="middle"></div>
+                        </div>
+                    </div>
+                    <div class="popupcenter">
+                        <div class="right">
+                            <div class="middle">
+                                <h3 class="title">&nbsp;</h3>
+                                <div class="data">
+                                    <div class="row p_t22">
+                                        <h4 class="sub_title"></h4>
+                                    </div>
+                                    <div class="row">
+                                        <p class="warning_content"></p>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="option_chooser_wrapper">
+                                        <div class="option_chooser">
+                                            <input runat="server" data-fullid="mainform.confirmDialog.btnCancel" class="big-button gray" onclick="popup.hide('confirmDialog686f5ac736f6b');" name="btnCancel" value="Cancel" type="button" id="btnCancel686f5ac73734d" />
+                                            <input runat="server" data-fullid="mainform.confirmDialog.btnOK" class="big-button red" name="btnOK" type="button" id="btnOK686f5ac73740b" />
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="right">
+                            <div class="middle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div runat="server" data-fullid="mainform.createTPAuthUser" style="display:none;" class="popup" id="createTPAuthUser686f5ac7375d5">
+            <div class="shadow-popup"></div>
+            <div class="wrap-popup" style="height: 500px;width: 1000px;">
+                <div class="popup">
+                    <div class="top">
+                        <div class="right">
+                            <div class="middle"></div>
+                        </div>
+                    </div>
+                    <div class="popupcenter">
+                        <div class="right">
+                            <div class="middle" style="overflow-x:hidden;overflow-y:visible;overflow:visible;">
+                                <h3 class="title">User Information For TPAuth Registration</h3>
+                                <div class="data" style="margin: 0px 13%; width: 75%;">
+                                    <div class="jumbotron">
+                                        <h1 style="font-weight: bolder;">Important Note:</h1>
+                                        <p>We are moving info most secure and modern process.</p>
+                                        <p>We required your valid and unique email. This email will be use on forgot and reset password.</p>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-3">
+                                            <div class="form-group row">
+                                                <label class="col-4 col-form-label" for="firstname">First Name:</label>
+                                                <div class="col-8">
+                                                    <input type="text" readonly="readonly" runat="server" data-fullid="mainform.createTPAuthUser.firstname" class="w_100p form-control" name="firstname" id="firstname686f5ac7379c9" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="lastname" class="col-4 col-form-label">Last Name:</label>
+                                                <div class="col-8">
+                                                    <input type="text" readonly="readonly" runat="server" data-fullid="mainform.createTPAuthUser.lastname" class="w_100p form-control" name="lastname" id="lastname686f5ac737afd" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="email" class="col-4 col-form-label">Email:</label>
+                                                <div class="col-8">
+                                                    <input type="text" runat="server" data-fullid="mainform.createTPAuthUser.email" class="w_100p form-control" name="email" id="email686f5ac737c2d" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="option_chooser_wrapper">
+                                        <div class="option_chooser">
+                                            <a runat="server" data-fullid="mainform.createTPAuthUser.btnCancel" class="big-button gray" onclick="popup.hide('createTPAuthUser686f5ac7375d5');" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/admin/userlogout" id="btnCancel686f5ac737d69"></a>
+                                            <input runat="server" data-fullid="mainform.createTPAuthUser.btnOK" class="big-button blue" name="btnOK" value="Save" type="button" id="btnOK686f5ac737e2a" />
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="right">
+                            <div class="middle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                function createUser() {
+                    var firstname = $("#firstname686f5ac7379c9").val();
+                    var lastname = $("#lastname686f5ac737afd").val();
+                    var email = $("#email686f5ac737c2d").val();
+                    $.ajax({
+                        url: '/EDEPOZE_PROJECT/sandbox.edepoze.com/admin/user_registration', // Adjusted path
+                        type: 'POST',
+                        data: {
+                            'FirstName': firstname,
+                            'LastName': lastname,
+                            'Email': email,
+                            'Clients': ["ReefExhibitQA_IdP"]
+                        },
+                        success: function (response) {
+                            var data = JSON.parse(response);
+                            if (data.error) {
+                                console.error("Error: " + data.message);
+                            } else {
+                                console.log("Success:", data.data);
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("AJAX Error:", error);
+                        }
+                    });
+                }
+            </script>
+        </div>
+
+        <div runat="server" data-fullid="mainform.termsOfServiceDialog" style="display:none;" class="popup" id="termsOfServiceDialog686f5ac73804f">
+            <div class="shadow-popup"></div>
+            <div class="wrap-popup">
+                <div class="popup">
+                    <div class="top">
+                        <div class="right">
+                            <div class="middle"></div>
+                        </div>
+                    </div>
+                    <div class="popupcenter">
+                        <div class="right">
+                            <div class="middle">
+                                <h3 class="title">&nbsp;</h3>
+                                <div class="data">
+                                    <div class="row">
+                                        <p class="warning_content">You must agree to the eDepoze <span class="tosLink" onclick="ajax.doit('->showTermsOfService');">Terms of Service</span> to use this web service. <span id="tosLink2" class="tosLink" onclick="ajax.doit('->showTermsOfService');">Click here</span> to review our Terms of Service.</p>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="option_chooser_wrapper">
+                                        <div class="option_chooser">
+                                            <input runat="server" data-fullid="mainform.termsOfServiceDialog.btnCancel" class="big-button gray" onclick="popup.hide('termsOfServiceDialog686f5ac73804f');" name="btnCancel" value="Disagree" type="button" id="btnCancel686f5ac7383b1" />
+                                            <input runat="server" data-fullid="mainform.termsOfServiceDialog.btnOK" class="big-button blue" name="btnOK" value="Agree" type="button" id="btnOK686f5ac738464" />
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="right">
+                            <div class="middle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div runat="server" data-fullid="mainform.termsOfService" style="display:none;" class="popup" id="termsOfService686f5ac738610">
+            <div class="tosWrap">
+                <div class="tosPopup">
+                    <div class="tosContent">
+                        <p class="tosHeader">
+                            <strong>You must agree to the eDepoze Terms of Service to use this web service.<br />
+                            Please review our Terms of Service and agree to them at the bottom of this page.</strong>
+                        </p>
+                        <br />
+                        <p class="tosTitle">EDEPOZE TERMS OF SERVICE</p>
+                        <br />
+                        <p>eDepoze, LLC ("eDepoze") has developed and maintains an integrated suite of services for subscribers to use in connection with legal depositions, witness preparation sessions, trials, arbitrations and other legal events (the "Services"). These Services are provided by means of several elements consisting of a central, cloud-based document repository and database; the eDepoze web manager portal (currently accessed through the https://login.edepoze.com domain); and user interfaces provided through the eDepoze web-based app (currently accessed through the https://webapp.edepoze.com domain) and/or the eDepoze iPad app (together, all such elements are referred to as the "eDepoze Application").</p>
+                        <p>The Terms of Service listed below govern eDepoze's relationship with users of the Services. By using or accessing the Services, you agree to these Terms of Service, as updated from time to time in accordance with Section 8 below. As used in these Terms of Service, the words "you," "your" or "Subscriber" refer to the individual or entity using or accessing the Services.</p>
+                        <br />
+                        <p><strong>1.<span class="tosLargeTab"></span>LICENSE GRANT.</strong></p>
+                        <br />
+                        <p>
+                            <strong>1.1<span class="tosSmallTab"></span>License to Use Service.</strong>
+                            eDepoze hereby grants to Subscriber a nonexclusive, nontransferable, worldwide license (the "License") to access and use the Services in accordance with this Agreement. All rights not expressly granted to Subscriber under the License are reserved by eDepoze. The License granted to Subscriber permits use of the Services by all user accounts ("End-users") set up under Subscriber's eDepoze account.
+                        </p>
+                        <br />
+                        <p>
+                            <strong>1.2<span class="tosSmallTab"></span>Limitations on Use.</strong>
+                            The content on the eDepoze Application and within the Services (the "Content") is for use only by Subscriber and its assigned End-users. Except as permitted by this Agreement, the Content may not be decompiled, reverse engineered, disassembled, transferred, distributed, resold, sublicensed, or used to create any derivative works. Subscriber may not use any network monitoring or discovery software to determine the Site's or Service's architecture, or extract information about usage or individual identities of users. Subscriber may not use any robot, spider, other automatic software or device, or manual process to monitor or copy the Site, Services, or its Content, without first receiving eDepoze's prior written consent. Subscriber may not (i) license, sublicense, sell, resell, transfer, assign, distribute or otherwise commercially exploit or make available to any non-End-user third party the Services or the Content in any way; (ii) modify or make derivative works based upon the eDepoze Application, the Services, or the Content; or (iii) "frame" or "mirror" any Content on any other server or wireless or Internet-based device. Subscriber may use the eDepoze Application and Services only for its internal business purposes and shall not: (i) send spam or otherwise duplicative or unsolicited messages; (ii) send or store infringing, obscene, threatening, libelous, or otherwise unlawful or tortuous material, including material harmful to children or material in violation of third party privacy rights; (iii) send or store material containing software viruses, worms, Trojan horses or other harmful computer code, files, scripts, agents or programs; (iv) interfere with or disrupt the integrity or performance of the eDepoze Application, Services, or the data contained therein; or (v) attempt to gain unauthorized access to the eDepoze Application, Services, or its related systems or networks.
+                        </p>
+                        <br />
+                        <p>
+                            <strong>2.<span class="tosLargeTab"></span>FEES AND PAYMENTS.</strong>
+                        </p>
+                        <br />
+                        <p>
+                            <strong>2.1<span class="tosSmallTab"></span>Monthly User Fees.</strong>
+                            Unless alternative fee arrangements have been agreed upon between Subscriber and the responsible provider for Subscriber's eDepoze account, Subscriber will be charged a monthly user fee for each case associated with each End-user set up under Subscriber's eDepoze account during a given month. Such user fees will be incurred regardless of actual usage of the eDepoze Application during that month.
+                        </p>
+                        <br />
+                        <p>
+                            <strong>2.2<span class="tosSmallTab"></span>Account Billing.</strong>
+                            Subscriber will be billed on a monthly basis by the reseller or other entity designated as the responsible provider for Subscriber's eDepoze account. In the event of delinquent payment, eDepoze and/or the responsible provider may suspend Subscriber's eDepoze account until payment is made.
+                        </p>
+                        <br />
+                        <p>
+                            <strong>2.3<span class="tosSmallTab"></span>No Circumvention of User-Based Charges.</strong>
+                            Subscriber shall not take any actions, including the use of any other software, which would have the effect of reducing the amounts to be paid under this Agreement based on the number of users, including arrangements for circumventing the features contained in the software for tracking the number of users, or for sharing individual access to or use of the software.
+                        </p>
+                        <br />
+                        <p>
+                            <strong>3.<span class="tosLargeTab"></span>EDEPOZE INTELLECTUAL PROPERTY.</strong>
+                            The eDepoze Application and its Contents ("eDepoze IP") are owned or licensed by eDepoze and protected by U.S. and international copyright, trademark, service mark, patent and/or other proprietary rights and laws. Except as expressly provided in this Agreement, nothing contained herein shall be construed as conferring to Subscriber any license or right under copyright or other intellectual property right law. No part of the eDepoze IP may be altered, copied, photocopied, reproduced, translated or reduced to any electronic medium or machine-readable form, in whole or in part, except as specifically provided in this Agreement. Subscriber shall not take any action that shall interfere with or diminish eDepoze's right in any of the eDepoze IP.
+                        </p>
+                        <br />
+                        <p>
+                            <strong>4.<span class="tosLargeTab"></span>SUBSCRIBER MATERIALS.</strong>
+                        </p>
+                        <br />
+                        <p>
+                            <strong>4.1<span class="tosSmallTab"></span>eDepoze's User of Subscriber Materials.</strong>
+                            Materials and information uploaded by Subscriber to the eDepoze Application ("Subscriber Materials") are owned by Subscriber. In the course of providing the Services, eDepoze may access, store, scan and back up Subscriber Materials. Except as is necessary to enable eDepoze to offer the Services, eDepoze does not claim any rights to Subscriber Materials. eDepoze is not responsible for the content of Subscriber Materials.
+                        </p>
+                        <br />
+                        <p>
+                            <strong>4.2<span class="tosSmallTab"></span>Your Use of Subscriber Materials.</strong>
+                            Subscriber and associated End-users may use the eDepoze Application to alter and share Subscriber Materials, and may export Subscriber Materials to email clients and other applications. For that reason, you should take care about how Subscriber Materials are shared and handled. Subscriber agrees not to copy, upload, download or share Subscriber Materials in a manner that would violate third-party intellectual rights.
+                        </p>
+                        <br />
+                        <p>
+                            <strong>5.<span class="tosLargeTab"></span>LIMITED WARRANTY.</strong>
+                            eDepoze represents and warrants that it has the right and authority to make the Services available to you. TO THE FULLEST EXTENT PERMITTED BY LAW, eDEPOZE AND ITS RESELLERS MAKE NO WARRANTIES, EITHER EXPRESS OR IMPLIED, ABOUT THE SERVICES. THE SERVICES ARE PROVIDED "AS IS." WE ALSO DISCLAIM ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+                        </p>
+                        <br />
+                        <p>
+                            <strong>6.<span class="tosLargeTab"></span>LIMITATION OF LIABILITY.</strong>
+                            TO THE FULLEST EXTENT PERMITTED BY LAW, IN NO EVENT WILL eDEPOZE OR ITS RESELLERS BE LIABLE FOR (A) ANY INDIRECT, SPECIAL, INCIDENTAL, PUNITIVE, EXEMPLARY OR CONSEQUENTIAL DAMAGES OR ANY LOSS OF USE, DATA, BUSINESS, OR PROFITS, REGARDLESS OF LEGAL THEORY, WHETHER OR NOT eDEPOZE HAS BEEN WARNED OF THE POSSIBILITY OF SUCH DAMAGES, AND EVEN IF A REMEDY FAILS OF ITS ESSENTIAL PURPOSE; (B) AGGREGATE LIABILITY FOR ALL CLAIMS RELATING TO THE SERVICES MORE THAN THE GREATER OF $20 OR THE AMOUNTS PAID BY YOU TO eDEPOZE FOR THE PAST 12 MONTHS OF THE SERVICES IN QUESTION.
+                        </p>
+                        <br />
+                        <p>
+                            <strong>7.<span class="tosLargeTab"></span>MISCELLANEOUS.</strong>
+                        </p>
+                        <br />
+                        <p>
+                            <strong>7.1<span class="tosSmallTab"></span>Controlling Law.</strong>
+                            These Terms will be governed by California law except for its conflicts of laws principles.
+                        </p>
+                        <br />
+                        <p>
+                            <strong>7.2<span class="tosSmallTab"></span>Entire Agreement.</strong>
+                            These Terms of Service constitute the entire agreement between you and eDepoze with respect to the subject matter of these Terms of Service, and supersede and replace any other prior or contemporaneous agreements, or terms and conditions applicable to the subject matter of these Terms of Service. These Terms of Service create no third party beneficiary rights.
+                        </p>
+                        <br />
+                        <p>
+                            <strong>7.3<span class="tosSmallTab"></span>Waiver, Severability & Assignment.</strong>
+                            eDepoze's failure to enforce a provision is not a waiver of its right to do so later. If a provision is found unenforceable, the remaining provisions of the Terms of Service will remain in full effect and an enforceable term will be substituted reflecting our intent as closely as possible. You may not assign any of your rights under these Terms of Service, and any such attempt will be void. eDepoze may assign its rights to any of its affiliates or subsidiaries, or to any successor in interest of any business associated with the Services.
+                        </p>
+                        <br />
+                        <p>
+                            <strong>8.<span class="tosLargeTab"></span>MODIFICATIONS.</strong>
+                            From time to time, eDepoze may amend these Terms of Service, and will always post the most current version on our website. If a revision meaningfully reduces your rights, we will notify you (by, for example, sending a message to the email address associated with your eDepoze account, posting on our blog or on this page). By continuing to use or access the Services after the revisions come into effect, you agree to be bound by the revised Terms of Service.
+                        </p>
+                        <br />
+                        <div class="option_chooser_wrapper">
+                            <div class="option_chooser">
+                                <input runat="server" data-fullid="mainform.termsOfService.btnCancel" class="big-button gray" onclick="popup.hide('termsOfService686f5ac738610');" name="btnCancel" value="Disagree" type="button" id="btnCancel686f5ac739236" />
+                                <input runat="server" data-fullid="mainform.termsOfService.btnOK" class="big-button blue" name="btnOK" value="Agree" type="button" id="btnOK686f5ac7392f6" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="login-main">
+            <div id="header" class="header" style="display:block;"></div>
+            <div class="bannerMessage">
+                <div>We shall transition to a Single Sign-On (SSO) login system soon.</div>
+            </div>
+            <div class="centerpad">
+                <div class="lform">
+                    <div class="formhd">Welcome Member! </div>
+                    <h2 class="auth_logo"><a href="javascript:void(0)">eDepoze&trade;</a></h2>
+                    <p class="form-txt-error">
+                        <span runat="server" data-fullid="mainform.valLogin" id="valLogin686f5ac7395eb"></span>&nbsp;
+                        <span runat="server" data-fullid="mainform.valLogin2" id="valLogin2686f5ac739700"></span>&nbsp;
+                    </p>
+                    <div class="form-body-members">
+                        <div class="form-group">
+                            <label>Username:</label>
+                            <input type="text" runat="server" data-fullid="mainform.username" class="form-control" onkeyup="if (event.keyCode==13) login();" name="username" maxlength="255" placeholder="Insert Your Username" id="username686f5ac739b3f" />
+                        </div>
+                        <div id="passwordField" class="form-group pt11" style="display: none;">
+                            <span runat="server" data-fullid="mainform.valFields" id="valFields686f5ac739c6c"></span>
+                            <label>Password:</label>
+                            <input type="password" runat="server" data-fullid="mainform.password" class="form-control" onkeyup="if (event.keyCode==13) login();" name="password" maxlength="255" id="password686f5ac739d74" />
+                            <input type="hidden" runat="server" data-fullid="mainform.passauth" name="passauth" id="passauth686f5ac739e6f" />
+                        </div>
+                        <div>
+                            <div class="btn-block">
+                                <button class="btn btn-log-next" id="loginButtonSubmit" type="button" style="display: none;" onclick="login(); _paq.push(['trackEvent', 'User ', 'Login', 'Login Clicked'])">Login</button>
+                                <button class="btn btn-log-next" id="nextButtonSubmit" type="button" onclick="showPasswordField(); _paq.push(['trackEvent', 'User ', 'Login', 'tpauth user login Clicked'])">Next</button>
+                            </div>
+                        </div>
+                        <script>
+                            function showPasswordField() {
+                                document.getElementById('passwordField').style.display = 'block';
+                                var nextButton = document.getElementById('nextButtonSubmit');
+                                nextButton.innerText = 'Login';
+                                nextButton.setAttribute('onclick', 'login(); _paq.push([\'trackEvent\', \'User \', \'Login\', \'Login Clicked\'])');
+                            }
+                        </script>
+                        <input type="hidden" runat="server" data-fullid="mainform.timeZone" name="timeZone" id="timeZone686f5ac73a222" />
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footer_data">
+                <p class="copyright">Copyright &copy; 2025 eDepoze, LLC</p>
+                <p class="poweredby"><img src="/EDEPOZE_PROJECT/sandbox.edepoze.com/logo.png" width="97" height="30" /></p>
+            </div>
+        </div>
+        <script type="text/javascript">
+            _paq.push(['appendToTrackingUrl', 'new_visit=1']);
+            // _paq.push(['trackPageView']);
+
+            $(document).ready(function() {
+                if ('/EDEPOZE_PROJECT/sandbox.edepoze.com/courts/exhibits/login' === window.location.pathname) { // Adjusted path
+                    $('.lform').css({
+                        "height": "480px",
+                        "width": "460px"
+                    });
+                    $('#nextButtonSubmit').hide();
+                    $('#passwordField').show();
+                    $('#loginButtonSubmit').show();
+                }
+            });
+
+            function login() {
+                if (event.keyCode === 13) {
+                    $("#loginButtonSubmit").click(_paq.push(['trackEvent', 'User', 'Enter Login Button', 'Login Clicked']));
+                }
+
+                if (!isCompat) {
+                    ajax.doit('->showErrorDialog', jQuery.browser);
+                    return;
+                }
+                if (!validators.validate('login', 'error', '', true)) return;
+                ajax.abort('->login');
+                $("#timeZone686f5ac73a222").val(new Date().getTimezoneOffset() * -1);
+                $("#passauth686f5ac739e6f").val(sha1($("#password686f5ac739d74").val()));
+                $("#password686f5ac739d74").val('');
+                ajax.bind(function(res) {
+                    if (res === false) {
+                        var ct;
+                        for (var f in {
+                                'email': 1,
+                                'username': 1,
+                                'password': 1,
+                                'depositionKey': 1
+                            }) {
+                            ct = controls.get(f);
+                            if (ct) validators.results[ct.id] = 0;
+                        }
+                        validators._showResult(false, 'error', '');
+                    }
+                }).doit('/EDEPOZE_PROJECT/sandbox.edepoze.com/admin/login_process', ajax.getFormValues()); // Assuming a login_process endpoint
+            }
+
+            function tpauthUserLogin() {
+                ajax.bind(function(response) {
+                    var res = JSON.parse(response);
+                    if (true == res.status) {
+                        window.location.href = res.url;
+                    }
+                    if (false == res.status && true == res.loginButtton) {
+                        $('#nextButtonSubmit').hide();
+                        $('#passwordField').show();
+                        $('#loginButtonSubmit').show();
+                    }
+                }).doit('/EDEPOZE_PROJECT/sandbox.edepoze.com/admin/tpauth_login_process', ajax.getFormValues()); // Adjusted path
+            }
+
+            var isCompat = false;
+            var isLatest = false;
+
+            $(document).ready(function() {
+                if (jQuery.browser.chrome) {
+                    isCompat = (jQuery.browser.majorVersion >= 30);
+                    isLatest = (jQuery.browser.majorVersion >= 40);
+                } else if (jQuery.browser.mozilla) {
+                    isCompat = (jQuery.browser.majorVersion >= 30);
+                    isLatest = (jQuery.browser.majorVersion >= 38);
+                } else if (jQuery.browser.safari) {
+                    isLatest = (jQuery.browser.majorVersion >= 9);
+                    isCompat = (jQuery.browser.majorVersion >= 6);
+                } else if (jQuery.browser.msie) {
+                    isCompat = (jQuery.browser.majorVersion >= 10);
+                    isLatest = jQuery.browser.webkit ? (jQuery.browser.majorVersion >= 12) : (jQuery.browser.majorVersion >= 11);
+                }
+                if (typeof console !== 'undefined') {
+                    console.log(jQuery.browser.ua);
+                    console.log(jQuery.browser.name, jQuery.browser.majorVersion, '-- isCompat:', isCompat, 'isLatest:', isLatest);
+                }
+                if (!isLatest && isCompat) {
+                    showWarningDialog();
+                } else if (!isCompat) {
+                    $('#signin_options a').attr('href', 'javascript:showErrorDialog();');
+                    showErrorDialog();
+                }
+            });
+
+            function showWarningDialog() {
+                var msg = 'You are currently using ' + jQuery.browser.name + ' version ' + jQuery.browser.majorVersion + '. It is recommeded to upgrade to a newer version.<br/>Please consider updating your browser.';
+                if (typeof console !== 'undefined') {
+                    console.log(msg);
+                }
+                return;
+            }
+
+            function showErrorDialog() {
+                var msg = 'You are currently using ' + jQuery.browser.name + ' version ' + jQuery.browser.majorVersion + '. It is required to upgrade to a newer version.<br/>You must update your browser to continue.';
+                if (typeof console !== 'undefined') {
+                    console.log(msg);
+                }
+                ajax.doit('/EDEPOZE_PROJECT/sandbox.edepoze.com/admin/show_error_dialog', jQuery.browser); // Adjusted path
+            }
+        </script>
+    </div>
+    <script type="text/javascript">
+        validators.add('valFields686f5ac739c6c', {
+            'groups': 'login',
+            'cids': 'username686f5ac739b3f,password686f5ac739d74',
+            'type': 'required',
+            'order': '0',
+            'mode': 'AND',
+            'message': '',
+            'action': '',
+            'unaction': '',
+            'exparam': {
+                'hiding': 0
+            }
+        });
+        validators.add('valEmail686f5ac73992e', {
+            'groups': 'login',
+            'cids': 'email686f5ac737c2d',
+            'type': 'email',
+            'order': '0',
+            'mode': 'AND',
+            'message': '',
+            'action': '',
+            'unaction': '',
+            'exparam': {
+                'expression': '/^[-a-z0-9!#$%&\'*+\\/=?^_`{|}~]+(\\.[-a-z0-9!#$%&\'*+\\/=?^_`{|}~]+)*@([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\\.)+(aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|law|pro|tel|travel|online|lawyer|attorney|solutions|[a-z][a-z])$/i',
+                'hiding': 0
+            }
+        });
+        popup.initialize('termsOfService686f5ac738610', 0);
+        popup.initialize('termsOfServiceDialog686f5ac73804f', 0);
+        popup.initialize('createTPAuthUser686f5ac7375d5', 0);
+        popup.initialize('confirmDialog686f5ac736f6b', 0);
+        ajax.initViewStates();
+    </script>
+</body>
+</html>

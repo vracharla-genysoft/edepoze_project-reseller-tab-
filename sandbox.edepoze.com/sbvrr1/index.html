@@ -1,0 +1,356 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta content="text/javascript" http-equiv="Content-Script-Type" />
+    <title>Case Management</title>
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/asset/css/AdminLTE.min.css" rel="stylesheet" />
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/asset/css/custom-admin.css" rel="stylesheet" />
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/css/fonts.css" rel="stylesheet" />
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/css/common.css" rel="stylesheet" />
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/css/reseller.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/controls.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/common/js/popup.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/ajax.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/jquery/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/polyfills.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/js/matomotracker.js"></script>
+</head>
+
+<body runat="server" data-fullid="page" id="page68772d64df678">
+    <div id="header" style="">
+        <div id="custom_logo">
+            <a href="/EDEPOZE_PROJECT/sandbox.edepoze.com/sbvrr1" style="">eDepoze</a>
+        </div>
+
+        <div id="buttons-container">
+            <a href="/EDEPOZE_PROJECT/sandbox.edepoze.com/case/view" target="_blank" class="buttonBlue">
+                <span class="buttonBlue_r">Go to Web App</span>
+            </a>
+        </div>
+
+        <div id="actions">
+            <div id="dd" class="wrapper-dropdown" tabindex="1">
+                <div class="userprofile" style="display: block;">
+                    <div class="profileImage">
+                        <p>S</p>
+                        <span>SBVRR1C1</span>
+                    </div>
+                </div>
+                <ul class="dropdown">
+                    <li>
+                        <a href="#">
+                            <i class="icon-remove"></i>
+                            <div href="javascript:void(0);" class="logout" onclick="ajax.doit('/EDEPOZE_PROJECT/sandbox.edepoze.com/admin/logout', ajax.getFormValues()); _paq.push(['trackEvent', 'User', 'Logout', 'Logout Clicked'])" style="">
+                                <span style="">Logout</span>
+                                <div class="logout_sign" style="">
+                                    <div class="logout_sign_2" style=""></div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="myMarquee">
+        <div class="header-banner">
+            <span><img src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/img/gl-illustration.svg" alt="" /> &nbsp;&nbsp;Help us improve eDepoze! (Paid activity) &nbsp;&nbsp;
+                <a id="myAnchor" href="https://calendly.com/nguerrero90/globallink-research-session" target="_blank">Reserve your
+                spot</a>
+            </span>
+        </div>
+    </div>
+    <div class="main_wrapper_other">
+        <div id="menuTabBar" class="tab_menu">
+            <ul>
+                <li>
+                    <a href="/EDEPOZE_PROJECT/sandbox.edepoze.com/sbvrr1/cases" class="active">
+                        <img src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/asset/images/CM.png"/> Case Management</a>
+                </li>
+                <li>
+                    <a href="/EDEPOZE_PROJECT/sandbox.edepoze.com/sbvrr1/users" class="">
+                        <img src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/asset/images/UM.png"/> User Management</a>
+                </li>
+                <li>
+                    <a href="/EDEPOZE_PROJECT/sandbox.edepoze.com/sbvrr1/myaccount" class="">
+                        <img src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/asset/images/MA.png"/> My Account</a>
+                </li>
+            </ul>
+            <div class="dropshadow"></div>
+        </div>
+        <div class="menuPlug"></div>
+        <div runat="server" data-fullid="confirmPopup" style="display:none;" class="popup" id="confirmPopup68772d64e00fb">
+            <div class="shadow-popup"></div>
+            <div class="wrap-popup">
+                <div class="popup">
+                    <div class="top">
+                        <div class="right">
+                            <div class="middle"></div>
+                        </div>
+                    </div>
+                    <div class="popupcenter">
+                        <div class="right">
+                            <div class="middle">
+                                <h3 class="title">&nbsp;</h3>
+                                <div class="data">
+                                    <div class="row p_t22">
+                                        <h4 class="sub_title"></h4>
+                                    </div>
+                                    <div class="row">
+                                        <p class="warning_content"></p>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="option_chooser_wrapper">
+                                        <div class="option_chooser">
+                                            <input runat="server" data-fullid="confirmPopup.btnCancel" class="big-button gray" onclick="popup.hide('confirmPopup68772d64e00fb');" name="btnCancel" value="Cancel" type="button" id="btnCancel68772d64e05a0" />
+                                            <input runat="server" data-fullid="confirmPopup.btnOK" class="big-button red" name="btnOK" type="button" id="btnOK68772d64e0679" /> </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="right">
+                            <div class="middle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div runat="server" data-fullid="noticePopup" style="display:none;" class="popup" id="noticePopup68772d64e08b3">
+            <div class="popup-notice">
+                <div class="shadow-popup"></div>
+                <div class="wrap-popup">
+                    <div class="popup">
+
+                        <div class="popupcenter">
+                            <div class="right">
+                                <div class="middle">
+                                    <h3 class="title"></h3>
+                                    <div class="data">
+                                        <div class="row p_t22">
+                                            <h4 class="sub_title"></h4>
+                                        </div>
+                                        <div class="row">
+                                            <p class="warning_content"></p>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <div class="option_chooser_wrapper">
+                                            <div class="option_chooser">
+                                                <input runat="server" data-fullid="noticePopup.btnCancel" class="big-button gray" onclick="popup.hide('noticePopup68772d64e08b3');" name="btnCancel" value="Close" type="button" id="btnCancel68772d64e0bf6" />
+                                            </div>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div runat="server" data-fullid="tutorialPopup" style="display:none;" class="popup" id="tutorialPopup68772d64e0d73">
+            <div class="shadow-popup z120"></div>
+            <div class="wrap-popup viewTutorial thin filePopup">
+                <div class="popup">
+                    <div class="top">
+                        <div class="right">
+                            <div class="middle"></div>
+                        </div>
+                    </div>
+                    <div class="popupcenter">
+                        <div class="right">
+                            <div class="middle">
+                                <h3 class="title">&nbsp;</h3>
+                                <div class="btnClose" onclick="closeTutorialPlayer();"></div>
+                                <div class="data">
+                                    <div id="tutorialContainer">
+                                        <video id="tutorial_player" class="stopOnHide" controls="controls" preload="auto" autoplay="autoplay" width="100%">
+                                            <source src="" type="video/mp4"></source>
+                                            Your browser does not support video playback.
+                                        </video>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="right">
+                            <div class="middle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                function closeTutorialPlayer() {
+                    var videoPlayer = document.getElementById('tutorial_player');
+                    videoPlayer.pause();
+                    videoPlayer.src = '';
+                    videoPlayer.load();
+                    popup.hide('tutorialPopup68772d64e0d73');
+                }
+            </script>
+        </div>
+        <div runat="server" data-fullid="mainform" class="content_top_reseller" id="mainform68772d64df1e9">
+            <div class="main">
+                <div class="content">
+                    <div class="content_header">
+                        <h2><img src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/asset/images/CM-Blue.png" />Case Management</h2>
+                        <div class="option_block">
+                            <a href="/EDEPOZE_PROJECT/sandbox.edepoze.com/sbvrr1/case/add" class="btn_blue option_btn" onclick="_paq.push(['trackEvent', 'Case Management Page', 'Add New Case', 'Add New Case Clicked'])">
+                                <span class="btn_blue_r"> Add New Case</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="content m_t20">
+                        <div runat="server" data-fullid="mainform.cases" id="cases68772d64e16ac">
+                            <table class="tbl_info">
+                                <tr>
+                                    <th width="10">&nbsp;</th>
+                                    <th width="90" onclick="_paq.push(['trackEvent', 'Case Management Page', 'Grid', 'Sort Case Number'])"><span style="cursor:pointer;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetCases@cases68772d64e16ac-&amp;gt;sort', 1);">Case #</span></th>
+                                    <th onclick="_paq.push(['trackEvent', 'Case Management Page', 'Grid', 'Sort Case Name'])"><span style="cursor:pointer;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetCases@cases68772d64e16ac-&amp;gt;sort', -2);">Case Name</span><span class="sort" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetCases@cases68772d64e16ac-&gt;sort', -2);"></span></th>
+                                    <th width="90" onclick="_paq.push(['trackEvent', 'Case Management Page', 'Grid', 'Sort Session'])"><span style="cursor:pointer;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetCases@cases68772d64e16ac-&amp;gt;sort', 3);">Sessions</span></th>
+                                    <th width="90" onclick="_paq.push(['trackEvent', 'Case Management Page', 'Grid', 'Sort Created'])"><span style="cursor:pointer;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetCases@cases68772d64e16ac-&amp;gt;sort', 4);">Created</span></th>
+                                    <th width="130">&nbsp;</th>
+                                </tr>
+                            </table>
+                            <div class="scrollTable">
+                                <table class="tbl_info">
+                                    <tr class="" style="cursor:pointer;" onclick="rowClick(event, '/EDEPOZE_PROJECT/sandbox.edepoze.com/sbvrr1/case/view?ID=1856')">
+                                        <td style="width:10px"></td>
+                                        <td style="width:90px" title="1">1</td>
+                                        <td>
+                                            <div class="to_e" style="width:488px;" title="Sample Case (DEMO)">Sample Case (DEMO)</div>
+                                        </td>
+                                        <td style="width:80px">1 of 1</td>
+                                        <td style="width:80px">06/18/2025</td>
+                                        <td style="width:130px">
+                                            <div class="hide_links">
+                                                <a href="/EDEPOZE_PROJECT/sandbox.edepoze.com/sbvrr1/case/view?ID=1856" onclick="_paq.push(['trackEvent', 'Case Management Page', 'View Case', 'View Clicked'])">View</a>
+                                                <a href="/EDEPOZE_PROJECT/sandbox.edepoze.com/sbvrr1/case/edit?ID=1856" onclick="_paq.push(['trackEvent', 'Case Management Page', 'Edit Case', 'Edit Clicked'])">Edit</a>
+                                                <a href="javascript:;" class="fc_red" onclick="deleteCase(event,1856, 0); _paq.push(['trackEvent', 'Case Management Page', 'Delete Case', 'Delete Clicked'])">Delete</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <hr class="bottom_line" />
+                            <div class="clear"></div>
+
+                            <script type="text/javascript">
+                                widgetClientCallback = 'ClickBlocks\\Web\\UI\\POM\\WidgetCases@cases68772d64e16ac';
+
+                                function deleteCase(event, id, confirm) {
+                                    event = event || window.event;
+                                    event.stopPropagation ? event.stopPropagation() : (event.cancelBubble = true);
+                                    console.log('deleteCase', event);
+                                    if (confirm) {
+                                        ajax.doit('/EDEPOZE_PROJECT/sandbox.edepoze.com/admin/delete_case', id); // Adjusted path
+                                    } else {
+                                        ajax.doit('/EDEPOZE_PROJECT/sandbox.edepoze.com/admin/confirm_delete_case', id); // Adjusted path
+                                    }
+                                }
+
+                                function rowClick(event, link) {
+                                    event = event || window.event;
+                                    console.log('rowClick', event);
+                                    var target = event.target || event.srcElement;
+                                    if (target.tagName != 'A' && target.tagName != 'SPAN') {
+                                        document.location = link;
+                                    }
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer_data">
+            <p class="copyright">Copyright &copy; 2025 eDepoze,LLC </p>
+        </div>
+    </div>
+    <script type="text/javascript">
+        (function($) {
+            $(document).ready(function() {
+                $(window).scroll(function() {
+                    if ($(this).scrollTop() > 124) {
+                        $('#menuTabBar').addClass('small');
+                        $('.menuPlug').show();
+                    } else {
+                        $('#menuTabBar').removeClass('small');
+                        $('.menuPlug').hide();
+                    }
+                });
+            });
+        })(jQuery);
+
+
+        /*Matomo Integration*/
+        var _paq = window._paq = window._paq || [];
+        (function() {
+            $.ajax({
+                async: false,
+                url: '/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/js/matomo_config.php', // Adjusted path
+                datatype: "json",
+                crossDomain: true,
+                success: function(matomositeid_json) {
+                    var u = "https://techops-analytics.transperfect.com/";
+                    _paq.push(['setTrackerUrl', u + 'matomo.php']);
+                    _paq.push(['setSiteId', JSON.parse(matomositeid_json)]);
+                    var d = document,
+                        g = d.createElement('script'),
+                        s = d.getElementsByTagName('script')[0];
+                    g.async = true;
+                    g.src = u + 'matomo.js';
+                    s.parentNode.insertBefore(g, s);
+                },
+                error: function(error) {
+                    alert('error; ' + eval(error.object));
+                }
+            })
+        })();
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+    </script>
+    <script type="text/javascript">
+        function DropDown(el) {
+            this.dd = el;
+            this.initEvents();
+        }
+        DropDown.prototype = {
+            initEvents: function() {
+                var obj = this;
+                obj.dd.on('click', function(event) {
+                    $(this).addClass('active');
+                    event.stopPropagation();
+                });
+            }
+        }
+        $(function() {
+            var dd = new DropDown($('#dd'));
+            $(document).click(function() {
+                // all dropdowns
+                $('.wrapper-dropdown').removeClass('active');
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        popup.initialize('tutorialPopup68772d64e0d73', 0);
+        popup.initialize('noticePopup68772d64e08b3', 0);
+        popup.initialize('confirmPopup68772d64e00fb', 0);
+        ajax.initViewStates();
+    </script>
+</body>
+
+</html>
