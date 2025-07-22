@@ -1,0 +1,851 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta content="text/javascript" http-equiv="Content-Script-Type" />
+    <title>Reseller Edit/Add</title>
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/asset/css/AdminLTE.min.css" rel="stylesheet" />
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/asset/css/custom-admin.css" rel="stylesheet" />
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/css/fonts.css" rel="stylesheet" />
+    <!--[if IE 7]><link  type="text/css" href="/Application/_includes/backend/css/common-ie7.css" rel="stylesheet" /><![endif]-->
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/css/common.css" rel="stylesheet" />
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/css/superadmin.css" rel="stylesheet" />
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/colorpicker/js_color_picker_v2.css" rel="stylesheet" />
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/imgeditor/imgeditor.css" rel="stylesheet" />
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/css/jquery-ui-1.11.0.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/controls.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/common/js/popup.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/ajax.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/jquery/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/polyfills.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/js/sha1.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/js/country_toggle.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/colorpicker/js_color_picker_v2.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/raphael.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/imgeditor/imgeditor.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/validators.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/common/js/customddb.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/jquery/jquery-ui-1.11.0.min.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/common/js/datetime.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/uploadbutton.js"></script>
+</head>
+
+<body runat="server" data-fullid="page" id="page687e22311f404">
+    <div id="header" style="">
+        <div id="custom_logo">
+            <a href="/admin" style="">eDepoze</a>
+        </div>
+
+        <div id="buttons-container">
+            <!-- <a href="" target="_blank" class="btn_blue option_btn">
+				<span class="btn_blue_r">Help us improve</span>
+			</a> -->
+            <a href="https://app-sandbox.edepoze.com" target="_blank" class="buttonBlue">
+				<span class="buttonBlue_r">Go to Web App</span>
+			</a>
+        </div>
+
+        <div id="actions">
+            <div id="dd" class="wrapper-dropdown" tabindex="1">
+                <div class="userprofile" style="display: block;">
+                    <div class="profileImage">
+                        <p>
+                            S</p>
+                        <span>
+							Super						</span>
+                    </div>
+                </div>
+                <ul class="dropdown">
+                    <!--li>
+						<a href="#">
+							<i class="icon-user"/>
+							</a>
+					</li-->
+                    <li>
+                        <a href="#">
+							<i class="icon-remove"></i>
+							<div href="javascript:void(0);" class="logout" onclick="ajax.doit('->logout'); _paq.push(['trackEvent', 'User', 'Logout', 'Logout Clicked'])" style="">
+								<span style="">Logout</span>
+								<div class="logout_sign" style="">
+									<div class="logout_sign_2" style=""></div>
+								</div>
+							</div>
+						</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="myMarquee">
+        <div class="header-banner">
+            <span><img src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/img/gl-illustration.svg" alt="" /> &nbsp;&nbsp;Help us improve eDepoze! (Paid activity) &nbsp;&nbsp;
+				<a id="myAnchor" href="https://calendly.com/nguerrero90/globallink-research-session" target="_blank">Reserve your
+				spot</a>
+			</span>
+        </div>
+    </div>
+    <div class="main_wrapper_other">
+        <div id="menuTabBar" class="tab_menu">
+            <ul>
+                <li>
+                    <a href=" /admin/resellers" class="active">
+						Resellers</a>
+                </li>
+                <li>
+                    <a href=" /admin/clients" class="">
+						Clients</a>
+                    <ul class="tab_menu_sub">
+                        <li>
+                            <a href=" /admin/clients">
+								Enterprise Clients</a>
+                        </li>
+                        <li>
+                            <a href=" /admin/courtclients">
+								Court Clients</a>
+                        </li>
+                        <li>
+                            <a href=" /admin/tpauth/users">
+								TPAuth Clients | Users</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href=" /admin/reports/user" class="">
+						Reports</a>
+                    <ul class="tab_menu_sub">
+                        <li>
+                            <a href=" /admin/reports/user">
+								User Report</a>
+                        </li>
+                        <li>
+                            <a href=" /admin/report/commission">
+								Commission Report</a>
+                        </li>
+                        <li>
+                            <a href=" /admin/reports">
+								Usage Report</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href=" /admin/notifications" class="">
+						Notify Users</a>
+                </li>
+                <li>
+                    <a href=" /admin/admins" class="">
+						Admins</a>
+                </li>
+                <li>
+                    <a href=" /admin/myaccount" class="">
+						My Account</a>
+                </li>
+            </ul>
+            <div class="dropshadow"></div>
+        </div>
+        <div class="menuPlug"></div>
+        <div runat="server" data-fullid="confirmPopup" style="display:none;" class="popup" id="confirmPopup687e22311f9b1">
+            <div class="shadow-popup"></div>
+            <div class="wrap-popup">
+                <div class="popup">
+                    <div class="top">
+                        <div class="right">
+                            <div class="middle"></div>
+                        </div>
+                    </div>
+                    <div class="popupcenter">
+                        <div class="right">
+                            <div class="middle">
+                                <h3 class="title">&nbsp;</h3>
+                                <div class="data">
+                                    <div class="row p_t22">
+                                        <h4 class="sub_title"></h4>
+                                    </div>
+                                    <div class="row">
+                                        <p class="warning_content"></p>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="option_chooser_wrapper">
+                                        <div class="option_chooser">
+                                            <input runat="server" data-fullid="confirmPopup.btnCancel" class="big-button gray" onclick="popup.hide('confirmPopup687e22311f9b1');" name="btnCancel" value="Cancel" type="button" id="btnCancel687e22311fd87" />                                            <input runat="server" data-fullid="confirmPopup.btnOK" class="big-button red" name="btnOK" type="button" id="btnOK687e22311fe43" /> </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="right">
+                            <div class="middle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div runat="server" data-fullid="noticePopup" style="display:none;" class="popup" id="noticePopup687e223120179">
+            <div class="popup-notice">
+                <div class="shadow-popup"></div>
+                <div class="wrap-popup">
+                    <div class="popup">
+
+                        <div class="popupcenter">
+                            <div class="right">
+                                <div class="middle">
+                                    <h3 class="title"></h3>
+                                    <div class="data">
+                                        <div class="row p_t22">
+                                            <h4 class="sub_title"></h4>
+                                        </div>
+                                        <div class="row">
+                                            <p class="warning_content"></p>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <div class="option_chooser_wrapper">
+                                            <div class="option_chooser">
+                                                <input runat="server" data-fullid="noticePopup.btnCancel" class="big-button gray" onclick="popup.hide('noticePopup687e223120179');" name="btnCancel" value="Close" type="button" id="btnCancel687e22312047f" />                                                </div>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div runat="server" data-fullid="tutorialPopup" style="display:none;" class="popup" id="tutorialPopup687e2231205f0">
+            <div class="shadow-popup z120"></div>
+            <div class="wrap-popup viewTutorial thin filePopup">
+                <div class="popup">
+                    <div class="top">
+                        <div class="right">
+                            <div class="middle"></div>
+                        </div>
+                    </div>
+                    <div class="popupcenter">
+                        <div class="right">
+                            <div class="middle">
+                                <h3 class="title">&nbsp;</h3>
+                                <div class="btnClose" onclick="closeTutorialPlayer();"></div>
+                                <div class="data">
+                                    <div id="tutorialContainer">
+                                        <video id="tutorial_player" class="stopOnHide" controls="controls" preload="auto" autoplay="autoplay" width="100%">
+								<source src="" type="video/mp4"></source>
+								Your browser does not support video playback.
+							</video>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="right">
+                            <div class="middle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                function closeTutorialPlayer() {
+                    var videoPlayer = document.getElementById('tutorial_player');
+                    videoPlayer.pause();
+                    videoPlayer.src = '';
+                    videoPlayer.load();
+                    popup.hide('tutorialPopup687e2231205f0');
+                }
+            </script>
+        </div>
+        <div runat="server" data-fullid="mainform" class="content_top" id="mainform687e22311f15b">
+            <div class="main">
+                <div class="content_header">
+                    <h2>Reseller Management</h2>
+                </div>
+                <div class="clear"></div>
+                <div runat="server" data-fullid="mainform.userlist" id="userlist687e223120ba7">
+                    <div class="panel_control" style="margin-top: 5px;">
+                        <div runat="server" data-fullid="mainform.userlist.nav2" id="nav2687e223120ff2">
+                            <div class="paginator" name="paginator">
+                                <p class="go_to_page_caption">Go to Page:</p>
+                                <input id="page_nav2687e223120ff2" type="text" class="go_to_page" onkeypress="if (event.keyCode == 13) ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClientUserList@userlist687e223120ba7->__set', 'pos', this.value - 1);" />
+                                <a class="btn_go_to_page" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClientUserList@userlist687e223120ba7->__set', 'pos', document.getElementById('page_nav2687e223120ff2').value - 1); _paq.push(['trackEvent', 'Search Page', 'Go to page', 'Go Clicked'])"
+                                    href="javascript:;"><span>Go</span></a>
+
+                                <a href="javascript:;" class="previous_page" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClientUserList@userlist687e223120ba7->__set', 'pos', 0);">
+      <span class="first_page"><span>First</span></span>
+    </a>
+
+
+
+
+                                <a href="javascript:;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClientUserList@userlist687e223120ba7->__set', 'pos', 0);"><span>1</span></a><a href="javascript:;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClientUserList@userlist687e223120ba7->__set', 'pos', 1);"><span>2</span></a>
+                                <a
+                                    href="javascript:;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClientUserList@userlist687e223120ba7->__set', 'pos', 2);"><span>3</span></a>
+                                    <a href="javascript:;"><span class="active_page">4</span></a>
+
+
+
+
+
+                            </div>
+                        </div>
+                        <div class="showing">
+                            <div style="font-weight:bold;padding-right:5px;">Showing</div>
+                            <div>91 - 96 of 96 &nbsp; &nbsp; | &nbsp; &nbsp;</div>
+                            <div class="display">Display</div>
+                        </div>
+                        <div id="container_pageSize687e2231211cc" class="custom-select small" style="width:47px;margin-left: 7px;z-index: 2;"><span id="select_pageSize687e2231211cc" class="arrow button" onclick="cddb.open('pageSize687e2231211cc',event)"></span>
+                            <div id="val_pageSize687e2231211cc" class="field" style="width:20px;" onclick="cddb.open('pageSize687e2231211cc',event)">30</div>
+                            <ul id="list_pageSize687e2231211cc" style="display:none;width:45px;" class="_custom_select_list">
+                                <li onclick="cddb.select('pageSize687e2231211cc', '10', this.innerHTML);ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClientUserList@userlist687e223120ba7-&gt;__set', 'pageSize', this.innerHTML);">10</li>
+                                <li onclick="cddb.select('pageSize687e2231211cc', '20', this.innerHTML);ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClientUserList@userlist687e223120ba7-&gt;__set', 'pageSize', this.innerHTML);">20</li>
+                                <li onclick="cddb.select('pageSize687e2231211cc', '30', this.innerHTML);ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClientUserList@userlist687e223120ba7-&gt;__set', 'pageSize', this.innerHTML);">30</li>
+                            </ul><select runat="server" data-fullid="mainform.userlist.pageSize" style="display:none;" name="pageSize" id="pageSize687e2231211cc"><option value="10">10</option><option value="20">20</option><option value="30" selected="selected">30</option></select></div>
+                    </div>
+                    <div>
+                        <div style="float:left; width: 33%;background: white" class="table-container" id="resellerList">
+                            <table class="tbl_info">
+                                <tr class="reseller-header">
+                                    <th width="10">&nbsp;</th>
+                                    <th width="90"><span style="cursor:pointer;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClientUserList@userlist687e223120ba7-&amp;gt;sort', 1);">ID</span></th>
+                                    <th><span style="cursor:pointer;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClientUserList@userlist687e223120ba7-&amp;gt;sort', 2);">Reseller Name</span><span class="sort top" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClientUserList@userlist687e223120ba7-&gt;sort', 2);"></span></th>
+                                    <th width="140">&nbsp;</th>
+                                </tr>
+                                
+                            </table>
+                        </div>
+
+                        <div style="float:left; width: 33%;background: white;" id="clientList">
+                            <table class="tbl_info">
+                                <tr>
+                                    <th width="10">&nbsp;</th>
+                                    <th width="60">ID</th>
+                                    <th>Client Admin</th>
+                                    <th width="140">&nbsp;</th>
+                                </tr>
+                                <tr>
+                                    <td colspan="9" class="t_a_c">
+                                        <strong>Please Select Reseller</strong>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+
+                        <div style="float:left; width: 34%;background: white;" id="userList">
+                            <table class="tbl_info">
+                                <tr>
+                                    <th width="10">&nbsp;</th>
+                                    <th width="60">ID</th>
+                                    <th>Client User</th>
+                                    <th width="140">&nbsp;</th>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="9" class="t_a_c">
+                                        <strong>Please Select Client Admin</strong>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+
+                    <div class="panel_paginator">
+                        <div runat="server" data-fullid="mainform.userlist.nav" id="nav687e223121642">
+                            <div class="paginator" name="paginator">
+                                <p class="go_to_page_caption">Go to Page:</p>
+                                <input id="page_nav687e223121642" type="text" class="go_to_page" onkeypress="if (event.keyCode == 13) ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClientUserList@userlist687e223120ba7->__set', 'pos', this.value - 1);" />
+                                <a class="btn_go_to_page" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClientUserList@userlist687e223120ba7->__set', 'pos', document.getElementById('page_nav687e223121642').value - 1); _paq.push(['trackEvent', 'Search Page', 'Go to page', 'Go Clicked'])"
+                                    href="javascript:;"><span>Go</span></a>
+
+                                <a href="javascript:;" class="previous_page" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClientUserList@userlist687e223120ba7->__set', 'pos', 0);">
+      <span class="first_page"><span>First</span></span>
+    </a>
+
+
+
+
+                                <a href="javascript:;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClientUserList@userlist687e223120ba7->__set', 'pos', 0);"><span>1</span></a><a href="javascript:;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClientUserList@userlist687e223120ba7->__set', 'pos', 1);"><span>2</span></a>
+                                <a
+                                    href="javascript:;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClientUserList@userlist687e223120ba7->__set', 'pos', 2);"><span>3</span></a>
+                                    <a href="javascript:;"><span class="active_page">4</span></a>
+
+
+
+
+
+                            </div>
+                        </div>
+                        <div class="showing">
+                            <div style="font-weight:bold;padding-right:5px;">Showing</div>
+                            <div>91 - 96 of 96 &nbsp; &nbsp; | &nbsp; &nbsp;</div>
+                            <div class="display">Display</div>
+                        </div>
+                        <div id="container_pageSize1687e2231217e2" class="custom-select small" style="width:47px;"><span id="select_pageSize1687e2231217e2" class="arrow button" onclick="cddb.open('pageSize1687e2231217e2',event)"></span>
+                            <div id="val_pageSize1687e2231217e2" class="field" style="width:20px;" onclick="cddb.open('pageSize1687e2231217e2',event)">30</div>
+                            <ul id="list_pageSize1687e2231217e2" style="display:none;width:45px;" class="_custom_select_list">
+                                <li onclick="cddb.select('pageSize1687e2231217e2', '10', this.innerHTML);ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClientUserList@userlist687e223120ba7-&gt;__set', 'pageSize', this.innerHTML);">10</li>
+                                <li onclick="cddb.select('pageSize1687e2231217e2', '20', this.innerHTML);ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClientUserList@userlist687e223120ba7-&gt;__set', 'pageSize', this.innerHTML);">20</li>
+                                <li onclick="cddb.select('pageSize1687e2231217e2', '30', this.innerHTML);ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClientUserList@userlist687e223120ba7-&gt;__set', 'pageSize', this.innerHTML);">30</li>
+                            </ul><select runat="server" data-fullid="mainform.userlist.pageSize1" style="display:none;" name="pageSize1" id="pageSize1687e2231217e2"><option value="10">10</option><option value="20">20</option><option value="30" selected="selected">30</option></select></div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <hr class="bottom_line" />
+                    <div class="clear"></div>
+
+                    <script type="text/javascript">
+                        widgetClientCallback = 'ClickBlocks\\Web\\UI\\POM\\WidgetClientUserList@userlist687e223120ba7';
+
+
+                        function activateAccount(id, confirm) {
+                            if (confirm) {
+                                ajax.doit(widgetClientCallback + '->activateAccount', id);
+                            } else {
+                                ajax.doit(widgetClientCallback + '->confirmActivateAccount', id);
+                            }
+                        }
+
+                        function rowClick(event, link) {
+                            var target = event.target || event.srcElement;
+                            if (target.tagName != 'A' && target.tagName != 'SPAN') {
+                                document.location = link;
+                            }
+                        }
+
+                        function highlight_selectedrow(clickedTableId) {
+                            $(document).on('click', '#' + clickedTableId + ' tr', function() {
+                                $('#' + clickedTableId + ' tr').removeClass('active');
+                                $(this).addClass('active');
+                            });
+                        }
+
+                        function clientRecords(tableId, resellerID) {
+                            ajax.bind(function(response) {
+                                var nextTableId = 'clientList';
+                                var nextTable = document.getElementById(nextTableId);
+                                var tableBody = nextTable.querySelector('tbody');
+                                tableBody.innerHTML = ''; // Clear existing rows
+
+                                var headerRow = document.createElement('tr');
+                                headerRow.innerHTML = `
+        <th width="60" onclick="sortColumn('id', 'clientList')" style="cursor: pointer;">
+            <div style="padding-left: 10px;display: flex;align-items: center;">ID
+                <div id="clientIDSort" class="sort" style="height: 20px;width:20px;margin-left: 7px;"></div>
+            </div>
+        </th>
+        <th onclick="sortColumn('name', 'clientList')" style="width: calc(100% - 160px);cursor: pointer;width: 83%;">
+            <div style="display: flex;align-items: center;"> Client Admin 
+                <div id="clientName" class="sort" style="height: 20px;width:20px;margin-left: 7px;"></div>
+            </div>
+        </th>
+        <th width="100"></th>
+        `;
+                                tableBody.appendChild(headerRow);
+
+                                // Add styling to make the header row fixed
+                                headerRow.style.position = 'sticky';
+                                headerRow.style.top = '0';
+                                headerRow.style.zIndex = '1';
+
+                                try {
+                                    var parsedData = JSON.parse(response);
+                                    if (Array.isArray(parsedData) && parsedData.length > 0) {
+                                        parsedData.forEach(function(item) {
+                                            var row = document.createElement('tr');
+                                            row.className = 'zebra';
+
+                                            var idCell = document.createElement('td');
+                                            idCell.textContent = item.ID;
+                                            idCell.style.paddingLeft = '10px';
+                                            idCell.style.paddingRight = '70px';
+
+                                            var nameCell = document.createElement('td');
+                                            var nameDiv = document.createElement('div');
+                                            nameDiv.textContent = item.name;
+                                            nameDiv.title = item.name;
+                                            nameDiv.style.width = '200px';
+                                            nameDiv.classList.add("to_e");
+                                            nameCell.appendChild(nameDiv);
+
+                                            var actionsCell = document.createElement('td'); // New cell for actions
+                                            var actionsDiv = document.createElement('div');
+                                            actionsDiv.className = 'hide_links';
+                                            var viewEditLink = document.createElement('a');
+                                            viewEditLink.href = '/admin/clientadmin/edit?ID=' + item.ID;
+                                            viewEditLink.textContent = 'View/Edit';
+                                            actionsDiv.appendChild(viewEditLink);
+
+                                            // Attach click event listener to the viewEditLink element
+                                            viewEditLink.addEventListener('click', function(event) {
+                                                event.stopPropagation(); // Prevent the click event from bubbling up to the row
+                                            });
+
+                                            actionsCell.appendChild(actionsDiv);
+
+                                            row.addEventListener('click', function() {
+                                                var allRows = nextTable.querySelectorAll('tr');
+                                                allRows.forEach(function(row) {
+                                                    row.classList.remove('selected-row');
+                                                });
+                                                row.classList.add('selected-row');
+                                                userRecords('clientList', item.ID);
+                                            });
+
+                                            // row.setAttribute('onclick', "userRecords('clientList', " + item.ID + ");");
+
+                                            row.appendChild(idCell);
+                                            row.appendChild(nameCell);
+                                            row.appendChild(actionsCell);
+
+                                            tableBody.appendChild(row);
+                                        });
+                                    } else {
+                                        // If no data is loaded, create a row with a message
+                                        var emptyRow = document.createElement('tr');
+                                        var emptyCell = document.createElement('td');
+                                        emptyCell.colSpan = 2;
+                                        emptyCell.textContent = 'No Client Admin available';
+                                        emptyCell.style.textAlign = 'center';
+                                        emptyCell.style.width = '100%';
+                                        emptyRow.appendChild(emptyCell);
+                                        tableBody.appendChild(emptyRow);
+                                    }
+                                } catch (error) {
+                                    console.error('Error parsing response:', error);
+                                }
+
+                                var tableContentHeight = tableBody.offsetHeight;
+                                // Set the table height dynamically
+                                var maxHeight = 500;
+                                if (tableContentHeight > maxHeight) {
+                                    nextTable.style.maxHeight = maxHeight + 'px';
+                                    nextTable.style.overflowY = 'auto';
+                                } else {
+                                    nextTable.style.maxHeight = 'none';
+                                    nextTable.style.overflowY = 'visible';
+                                }
+
+                                // Reset the userList table if the resellerList is clicked
+                                if (tableId === 'resellerList') {
+                                    resetUserListTable();
+                                }
+
+                            }).doit(widgetClientCallback + '->clientRecords', resellerID);
+                        }
+
+                        var sortingOrder = {};
+
+                        function sortColumn(column, tableId) {
+                            var table = document.getElementById(tableId);
+                            var tbody = table.querySelector('tbody');
+                            var headerRow = tbody.querySelector('tr:first-child');
+
+                            var rows = Array.from(tbody.querySelectorAll('tr:not(:first-child)'));
+
+                            if (!sortingOrder[column] || sortingOrder[column] === 'desc') {
+                                sortingOrder[column] = 'asc';
+                            } else {
+                                sortingOrder[column] = 'desc';
+                            }
+
+                            rows.sort(function(a, b) {
+                                var x, y;
+                                var clientidsort = document.querySelector("#clientIDSort");
+                                var clientnamesort = document.querySelector("#clientName");
+
+                                var useridsort = document.querySelector("#userIDSort");
+                                var usernamesort = document.querySelector("#usernameSort");
+
+                                if (column === 'id') {
+                                    x = parseInt(a.cells[0].textContent.trim());
+                                    y = parseInt(b.cells[0].textContent.trim());
+                                } else if (column === 'name') {
+                                    x = a.cells[1].querySelector('div').textContent.trim();
+                                    y = b.cells[1].querySelector('div').textContent.trim();
+                                }
+                                if (sortingOrder[column] === 'asc') {
+                                    if (typeof x === 'number') {
+                                        if (table === clientList) {
+                                            clientidsort.classList.replace("sort", "sort_top");
+                                        } else {
+                                            useridsort.classList.replace("sort", "sort_top");
+                                        }
+                                        return y - x; // Sort numerically for ID column
+                                    } else {
+                                        if (table === clientList) {
+                                            clientnamesort.classList.add("sort");
+                                            clientnamesort.classList.remove("sort_top");
+                                        } else {
+                                            usernamesort.classList.add("sort");
+                                            usernamesort.classList.remove("sort_top");
+                                        }
+                                        return x.localeCompare(y); // Sort alphabetically for Name column
+                                    }
+                                } else {
+                                    if (typeof x === 'number') {
+                                        if (table === clientList) {
+                                            clientidsort.classList.replace("sort_top", "sort");
+                                        } else {
+                                            useridsort.classList.replace("sort_top", "sort");
+                                        }
+                                        return x - y; // Sort numerically for ID column in descending order
+                                    } else {
+                                        if (table === clientList) {
+                                            clientnamesort.classList.add("sort_top");
+                                            clientnamesort.classList.remove("sort");
+                                        } else {
+                                            usernamesort.classList.add("sort_top");
+                                            usernamesort.classList.remove("sort");
+                                        }
+                                        return y.localeCompare(x); // Sort alphabetically for Name column in descending order
+                                    }
+                                }
+                            });
+
+                            // Toggle arrow button styles and set the new sorting order
+                            var allSortButtons = table.querySelectorAll(`th [onclick="sortColumn('${column}', '${tableId}')"] .sort`);
+                            allSortButtons.forEach(function(arrowButton) {
+                                arrowButton.classList.remove('active', 'asc', 'desc');
+                            });
+                            allSortButtons.forEach(function(arrowButton) {
+                                if (arrowButton.dataset.column === column) {
+                                    arrowButton.classList.add('active', sortingOrder[column]);
+                                }
+                            });
+
+                            tbody.innerHTML = '';
+
+                            if (headerRow) {
+                                tbody.appendChild(headerRow.cloneNode(true));
+                            }
+
+                            rows.forEach(function(row) {
+                                tbody.appendChild(row);
+                            });
+                        }
+
+                        function resetUserListTable() {
+                            var userListTable = document.getElementById('userList');
+                            var tableBody = userListTable.querySelector('tbody');
+                            tableBody.innerHTML = '';
+
+                            var headerRow = document.createElement('tr');
+                            headerRow.innerHTML = `
+            <th width="60"><div style="padding-left: 10px;">ID</div></th>
+            <th>Client User</th>
+        `;
+                            tableBody.appendChild(headerRow);
+
+                            var emptyRow = document.createElement('tr');
+                            var emptyCell = document.createElement('td');
+                            emptyCell.colSpan = 2;
+                            emptyCell.textContent = 'Please Select Client Admin';
+                            emptyCell.style.textAlign = 'center';
+                            emptyRow.appendChild(emptyCell);
+                            tableBody.appendChild(emptyRow);
+                        }
+
+
+                        function userRecords(tableId, clientID) {
+                            ajax.bind(function(response) {
+                                var nextTableId;
+
+                                if (tableId === 'clientList') {
+                                    nextTableId = 'userList';
+                                }
+                                var nextTable = document.getElementById(nextTableId);
+
+                                // Get the table body within the nextTable container
+                                var tableBody = nextTable.querySelector('tbody');
+                                tableBody.innerHTML = '';
+
+                                var headerRow = document.createElement('tr');
+                                headerRow.innerHTML = `
+        <th width="60" onclick="sortColumn('id', 'userList')" style="cursor: pointer;">
+            <div style="padding-left: 10px;display: flex;align-items: center;">ID
+                <div id="userIDSort" class="sort" style="height: 20px;margin-left: 7px;width: 20px;"></div>
+            </div>
+        </th>
+        <th onclick="sortColumn('name', 'userList')" style="width: calc(100% - 160px);cursor: pointer;width:82%">
+            <div style="display: flex;align-items: center;"> Client User
+                <div id="usernameSort" class="sort" style="height: 20px;margin-left: 7px;width: 20px;"></div>
+            </div>
+        </th>
+        <th width="100"></th>
+        `;
+
+                                tableBody.appendChild(headerRow);
+
+                                // Add styling to make the header row fixed
+                                headerRow.style.position = 'sticky';
+                                headerRow.style.top = '0';
+                                headerRow.style.zIndex = '1';
+
+                                try {
+                                    var parsedData = JSON.parse(response);
+                                    if (Array.isArray(parsedData) && parsedData.length > 0) {
+                                        parsedData.forEach(function(item) {
+                                            var row = document.createElement('tr');
+                                            row.className = 'zebra';
+
+                                            var idCell = document.createElement('td');
+                                            idCell.textContent = item.ID;
+                                            idCell.style.paddingLeft = '10px';
+                                            idCell.style.paddingRight = '70px';
+
+                                            var nameCell = document.createElement('td');
+                                            var nameDiv = document.createElement('div');
+                                            nameDiv.textContent = item.username || '';
+                                            nameDiv.title = item.username;
+                                            nameDiv.style.width = '200px';
+                                            nameDiv.classList.add("to_e");
+                                            nameCell.appendChild(nameDiv);
+
+                                            var actionsCell = document.createElement('td'); // New cell for actions
+                                            var actionsDiv = document.createElement('div');
+                                            actionsDiv.className = 'hide_links';
+                                            var viewEditLink = document.createElement('a');
+                                            viewEditLink.href = '/admin/clientuser/edit?ID=' + item.ID;
+                                            viewEditLink.textContent = 'View/Edit';
+                                            actionsDiv.appendChild(viewEditLink);
+
+                                            // Attach click event listener to the viewEditLink element
+                                            viewEditLink.addEventListener('click', function(event) {
+                                                event.stopPropagation(); // Prevent the click event from bubbling up to the row
+                                            });
+
+                                            actionsCell.appendChild(actionsDiv);
+
+                                            row.appendChild(idCell);
+                                            row.appendChild(nameCell);
+                                            row.appendChild(actionsCell);
+
+                                            tableBody.appendChild(row);
+                                        });
+                                    } else {
+                                        // If no data is loaded, create a row with a message
+                                        var emptyRow = document.createElement('tr');
+                                        var emptyCell = document.createElement('td');
+                                        emptyCell.colSpan = 2; // Span the entire row
+                                        emptyCell.textContent = 'No Client User available';
+                                        emptyCell.style.textAlign = 'center';
+                                        emptyCell.style.width = '100%';
+                                        emptyRow.appendChild(emptyCell);
+                                        tableBody.appendChild(emptyRow);
+
+                                    }
+                                } catch (error) {
+                                    console.error('Error parsing response:', error);
+                                }
+
+                                var tableContentHeight = tableBody.offsetHeight;
+
+                                //set the table height dynamically
+                                var maxHeight = 500;
+                                if (tableContentHeight > maxHeight) {
+                                    nextTable.style.maxHeight = maxHeight + 'px';
+                                    nextTable.style.overflowY = 'auto';
+                                } else {
+                                    nextTable.style.maxHeight = 'none';
+                                    nextTable.style.overflowY = 'visible';
+                                }
+
+                            }).doit(widgetClientCallback + '->userRecords', clientID);
+                        }
+                    </script>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                clientCallback = '@';
+            </script>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer_data">
+            <p class="copyright">Copyright &copy; 2025 eDepoze,LLC </p>
+        </div>
+    </div>
+    <script type="text/javascript">
+        (function($) {
+            $(document).ready(function() {
+                $(window).scroll(function() {
+                    if ($(this).scrollTop() > 124) {
+                        $('#menuTabBar').addClass('small');
+                        $('.menuPlug').show();
+                    } else {
+                        $('#menuTabBar').removeClass('small');
+                        $('.menuPlug').hide();
+                    }
+                });
+            });
+        })(jQuery);
+
+
+        /*Matomo Integration*/
+        var _paq = window._paq = window._paq || [];
+        (function() {
+            $.ajax({
+                async: false,
+                url: '/Application/_includes/backend/js/matomo_config.php',
+                datatype: "json",
+                crossDomain: true,
+                success: function(matomositeid_json) {
+                    var u = "https://techops-analytics.transperfect.com/";
+                    _paq.push(['setTrackerUrl', u + 'matomo.php']);
+                    _paq.push(['setSiteId', JSON.parse(matomositeid_json)]);
+                    var d = document,
+                        g = d.createElement('script'),
+                        s = d.getElementsByTagName('script')[0];
+                    g.async = true;
+                    g.src = u + 'matomo.js';
+                    s.parentNode.insertBefore(g, s);
+                },
+                error: function(error) {
+                    alert('error; ' + eval(error.object));
+                }
+            })
+        })();
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+    </script>
+    <!-- jQuery if needed -->
+
+    <script type="text/javascript">
+        function DropDown(el) {
+            this.dd = el;
+            this.initEvents();
+        }
+        DropDown.prototype = {
+            initEvents: function() {
+                var obj = this;
+                obj.dd.on('click', function(event) {
+                    $(this).addClass('active');
+                    event.stopPropagation();
+                });
+            }
+        }
+        $(function() {
+            var dd = new DropDown($('#dd'));
+            $(document).click(function() {
+                // all dropdowns
+                $('.wrapper-dropdown').removeClass('active');
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        cddb.initialize('pageSize1687e2231217e2');
+        cddb.initialize('pageSize687e2231211cc');
+        popup.initialize('tutorialPopup687e2231205f0', 0);
+        popup.initialize('noticePopup687e223120179', 0);
+        popup.initialize('confirmPopup687e22311f9b1', 0);
+        ajax.initViewStates();
+    </script>
+</body>
+
+</html>

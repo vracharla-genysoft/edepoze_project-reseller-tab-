@@ -76,7 +76,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'superadmin') {
         <div id="menuTabBar" class="tab_menu">
             <ul>
                 <li>
-                    <a href=" /admin/resellers" class="active">
+                    <a href="/EDEPOZE_PROJECT/sandbox.edepoze.com/sbvrr1/superadmin.php" class="active">
                         Resellers</a>
                 </li>
                 <li>
@@ -143,19 +143,19 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'superadmin') {
                     <div class="popupcenter">
                         <div class="right">
                             <div class="middle">
-                                <h3 class="title">&nbsp;</h3>
+                                <h3 class="title" id="confirmPopupTitle">Confirmation</h3>
                                 <div class="data">
                                     <div class="row p_t22">
-                                        <h4 class="sub_title"></h4>
+                                        <h4 class="sub_title" id="confirmPopupSubTitle"></h4>
                                     </div>
                                     <div class="row">
-                                        <p class="warning_content"></p>
+                                        <p class="warning_content" id="confirmPopupContent"></p>
                                     </div>
                                     <div class="clear"></div>
                                     <div class="option_chooser_wrapper">
                                         <div class="option_chooser">
                                             <input runat="server" data-fullid="confirmPopup.btnCancel" class="big-button gray" onclick="popup.hide('confirmPopup687a0a70ce5d7');" name="btnCancel" value="Cancel" type="button" id="btnCancel687a0a70cea0f" />
-                                            <input runat="server" data-fullid="confirmPopup.btnOK" class="big-button red" name="btnOK" type="button" id="btnOK687a0a70cead4" />
+                                            <input runat="server" data-fullid="confirmPopup.btnOK" class="big-button red" name="btnOK" type="button" value="Confirm" id="btnOK687a0a70cead4" />
                                         </div>
                                     </div>
                                     <div class="clear"></div>
@@ -180,13 +180,13 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'superadmin') {
                         <div class="popupcenter">
                             <div class="right">
                                 <div class="middle">
-                                    <h3 class="title"></h3>
+                                    <h3 class="title" id="noticePopupTitle"></h3>
                                     <div class="data">
                                         <div class="row p_t22">
-                                            <h4 class="sub_title"></h4>
+                                            <h4 class="sub_title" id="noticePopupSubTitle"></h4>
                                         </div>
                                         <div class="row">
-                                            <p class="warning_content"></p>
+                                            <p class="warning_content" id="noticePopupContent"></p>
                                         </div>
                                         <div class="clear"></div>
                                         <div class="option_chooser_wrapper">
@@ -291,15 +291,15 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'superadmin') {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="clear"></div>
-                                        <div class="option_chooser_wrapper">
-                                            <div class="option_chooser">
-                                                <a runat="server" data-fullid="mainform.createTPAuthUser.btnCancel" class="big-button gray" onclick="popup.hide('createTPAuthUser687a0a70cf6c6');" href="/admin/userlogout" id="btnCancel687a0a70cfe61"></a>
-                                                <input runat="server" data-fullid="mainform.createTPAuthUser.btnOK" class="big-button blue" name="btnOK" value="Save" type="button" id="btnOK687a0a70cff2a" />
-                                            </div>
-                                        </div>
-                                        <div class="clear"></div>
                                     </div>
+                                    <div class="clear"></div>
+                                    <div class="option_chooser_wrapper">
+                                        <div class="option_chooser">
+                                            <a runat="server" data-fullid="mainform.createTPAuthUser.btnCancel" class="big-button gray" onclick="popup.hide('createTPAuthUser687a0a70cf6c6');" href="/admin/userlogout" id="btnCancel687a0a70cfe61"></a>
+                                            <input runat="server" data-fullid="mainform.createTPAuthUser.btnOK" class="big-button blue" name="btnOK" value="Save" type="button" id="btnOK687a0a70cff2a" />
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
                                 </div>
                             </div>
                         </div>
@@ -314,7 +314,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'superadmin') {
                 <script>
                     function createUser() {
                         var firstname = $("#firstname687a0a70cfae4").val();
-                        var lastname = $("#").val();
+                        var lastname = $("#lastname687a0a70cfc09").val();
                         var email = $("#email687a0a70cfd22").val();
                         $.ajax({
                             url: '/admin/user_registration', // Replace with the actual path to your PHP script
@@ -324,9 +324,8 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'superadmin') {
                                 'LastName': lastname,
                                 'Email': email,
                                 'Clients': ["ReefExhibitQA_IdP"]
-                            }, // Send any required data
+                            },
                             success: function(response) {
-                                // Parse the JSON response
                                 var data = JSON.parse(response);
                                 if (data.error) {
                                     console.error("Error: " + data.message);
@@ -353,11 +352,11 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'superadmin') {
                                 <input class="search_btn" type="button" name="go" value="Go" onclick="searchValue(); _paq.push(['trackEvent', 'Search List', 'Search', 'Go Clicked'])" />
                             </div>
                         </div>
-                        <a href="/admin/reseller/add" class="btn_blue option_btn" onclick="_paq.push(['trackEvent', 'Resellers page', 'Add Reseller', 'Add Reseller Clicked'])">
+                        <a href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Resellers/addresellers.php" class="btn_blue option_btn" target="_blank" onclick="_paq.push(['trackEvent', 'Resellers page', 'Add Reseller', 'Add Reseller Clicked'])">
                             <span class="btn_blue_r" style="margin-right:10px;">Add Reseller</span>
                         </a>
 
-                        <a href="/admin/resellers/userlist" class="btn_blue option_btn">
+                        <a href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Resellers/userlist.php" class="btn_blue option_btn">
                             <span class="btn_blue_r">User Hierarchy</span>
                         </a>
                     </div>
@@ -384,7 +383,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'superadmin') {
                         </div>
                         <div class="showing">
                             <div style="font-weight:bold;padding-right:5px;">Showing</div>
-                            <div>1 - 10 of 96 &nbsp; &nbsp; | &nbsp; &nbsp;</div>
+                            <div class="dynamic-reseller-count">Loading... &nbsp; &nbsp; | &nbsp; &nbsp;</div>
                             <div class="display">Display</div>
                         </div>
                         <div id="container_pageSize687a0a70d0dc0" class="custom-select small" style="width:47px;"><span id="select_pageSize687a0a70d0dc0" class="arrow button" onclick="cddb.open('pageSize687a0a70d0dc0',event)"></span>
@@ -394,109 +393,235 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'superadmin') {
                                 <li onclick="cddb.select('pageSize687a0a70d0dc0', '20', this.innerHTML);ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&gt;__set', 'pageSize', this.innerHTML);">20</li>
                                 <li onclick="cddb.select('pageSize687a0a70d0dc0', '30', this.innerHTML);ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&gt;__set', 'pageSize', this.innerHTML);">30</li>
                             </ul><select runat="server" data-fullid="mainform.clients.pageSize" style="display:none;" name="pageSize" id="pageSize687a0a70d0dc0"><option value="10" selected="selected">10</option><option value="20">20</option><option value="30">30</option></select></div>
-                    </div>
-                    <table class="tbl_info">
-                        <tr>
-                            <th width="10">&nbsp;</th>
-                            <th width="60"><span style="cursor:pointer;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&amp;gt;sort', 1);">ID</span></th>
-                            <th><span style="cursor:pointer;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&amp;gt;sort', -2);">Reseller Name</span><span class="sort" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&gt;sort', -2);"></span></th>
-                            <th width="80"><span style="cursor:pointer;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&amp;gt;sort', 9);">Type</span></th>
-                            <th width="80"><span style="cursor:pointer;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&amp;gt;sort', 8);">Level</span></th>
-                            <th width="200"><span style="cursor:pointer;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&amp;gt;sort', 4);">Primary Contact</span></th>
-                            <th width="110"><span style="cursor:pointer;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&amp;gt;sort', 5);">Reseller Since</span></th>
-                            <th width="80"><span style="cursor:pointer;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&amp;gt;sort', 6);">Status</span></th>
-                            <th width="100"><span style="cursor:pointer;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&amp;gt;sort', 10);">Video Conf</span></th>
-                            <th width="140">&nbsp;</th>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <div class="hide_links">
-                                    <a href="/admin/reseller/edit?ID=1146" onclick="_paq.push(['trackEvent', 'Reseller/Client Management', 'View/Edit', 'View/Edit Clicked'])">View/Edit</a>
-                                    <a href="javascript:void(0)" onclick="activateAccount(1146, 0);">Deactivate</a>
+                        </div>
+                        <table class="tbl_info">
+                            <thead>
+                                <tr>
+                                    <th width="10">&nbsp;</th>
+                                    <th width="60"><span style="cursor:pointer;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&amp;gt;sort', 1);">ID</span></th>
+                                    <th><span style="cursor:pointer;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&amp;gt;sort', -2);">Reseller Name</span><span class="sort" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&gt;sort', -2);"></span></th>
+                                    <th width="80"><span style="cursor:pointer;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&amp;gt;sort', 9);">Type</span></th>
+                                    <th width="80"><span style="cursor:pointer;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&amp;gt;sort', 8);">Level</span></th>
+                                    <th width="200"><span style="cursor:pointer;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&amp;gt;sort', 4);">Primary Contact</span></th>
+                                    <th width="110"><span style="cursor:pointer;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&amp;gt;sort', 5);">Reseller Since</span></th>
+                                    <th width="80"><span style="cursor:pointer;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&amp;gt;sort', 6);">Status</span></th>
+                                    <th width="100"><span style="cursor:pointer;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&amp;gt;sort', 10);">Video Conf</span></th>
+                                    <th width="140">&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody id="resellersTableBody">
+                                </tbody>
+                        </table>
+                        <div class="panel_paginator">
+                            <div runat="server" data-fullid="mainform.clients.nav" id="nav687a0a70d1503">
+                                <div class="paginator" name="paginator">
+                                    <p class="go_to_page_caption">Go to Page:</p>
+                                    <input id="page_nav687a0a70d1503" type="text" class="go_to_page" onkeypress="if (event.keyCode == 13) ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db->__set', 'pos', this.value - 1);" />
+                                    <a class="btn_go_to_page" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db->__set', 'pos', document.getElementById('page_nav2687a0a70d0bb7').value - 1); _paq.push(['trackEvent', 'Search Page', 'Go to page', 'Go Clicked'])"
+                                        href="javascript:;"><span>Go</span></a>
+                                    <a href="javascript:;"><span class="active_page">1</span></a>
+                                    <a href="javascript:;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db->__set', 'pos', 1);"><span>2</span></a><a href="javascript:;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db->__set', 'pos', 2);"><span>3</span></a>
+                                    <a href="javascript:;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db->__set', 'pos', 3);"><span>4</span></a>
+                                    <a href="javascript:;"><span>...</span></a>
+                                    <a href="javascript:;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db->__set', 'pos', 9);"><span>10</span></a>
+
+                                    <a href="javascript:;" class="next_page" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db->__set', 'pos', 9);">
+                                        <span class="last_page"><span>Last</span></span>
+                                    </a>
                                 </div>
-                            </td>
-                        </tr>
-                    </table>
-                    <div class="panel_paginator">
-                        <div runat="server" data-fullid="mainform.clients.nav" id="nav687a0a70d1503">
-                            <div class="paginator" name="paginator">
-                                <p class="go_to_page_caption">Go to Page:</p>
-                                <input id="page_nav687a0a70d1503" type="text" class="go_to_page" onkeypress="if (event.keyCode == 13) ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db->__set', 'pos', this.value - 1);" />
-                                <a class="btn_go_to_page" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db->__set', 'pos', document.getElementById('page_nav687a0a70d1503').value - 1); _paq.push(['trackEvent', 'Search Page', 'Go to page', 'Go Clicked'])"
-                                    href="javascript:;"><span>Go</span></a>
-                                <a href="javascript:;"><span class="active_page">1</span></a>
-                                <a href="javascript:;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db->__set', 'pos', 1);"><span>2</span></a><a href="javascript:;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db->__set', 'pos', 2);"><span>3</span></a>
-                                <a href="javascript:;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db->__set', 'pos', 3);"><span>4</span></a>
-                                <a href="javascript:;"><span>...</span></a>
-                                <a href="javascript:;" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db->__set', 'pos', 9);"><span>10</span></a>
-
-                                <a href="javascript:;" class="next_page" onclick="ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db->__set', 'pos', 9);">
-                                    <span class="last_page"><span>Last</span></span>
-                                </a>
                             </div>
+                            <div class="showing">
+                                <div style="font-weight:bold;padding-right:5px;">Showing</div>
+                                <div class="dynamic-reseller-count-bottom">1 - 10 of 96 &nbsp; &nbsp; | &nbsp; &nbsp;</div>
+                                <div class="display">Display</div>
+                            </div>
+                            <div id="container_pageSize1687a0a70d16de" class="custom-select small" style="width:47px;"><span id="select_pageSize1687a0a70d16de" class="arrow button" onclick="cddb.open('pageSize1687a0a70d16de',event)"></span>
+                                <div id="val_pageSize1687a0a70d16de" class="field" style="width:20px;" onclick="cddb.open('pageSize1687a0a70d16de',event)">10</div>
+                                <ul id="list_pageSize1687a0a70d16de" style="display:none;width:45px;" class="_custom_select_list">
+                                    <li onclick="cddb.select('pageSize1687a0a70d16de', '10', this.innerHTML);ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&gt;__set', 'pageSize', this.innerHTML);">10</li>
+                                    <li onclick="cddb.select('pageSize1687a0a70d16de', '20', this.innerHTML);ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&gt;__set', 'pageSize', this.innerHTML);">20</li>
+                                    <li onclick="cddb.select('pageSize1687a0a70d16de', '30', this.innerHTML);ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&gt;__set', 'pageSize', this.innerHTML);">30</li>
+                                </ul><select runat="server" data-fullid="mainform.clients.pageSize1" style="display:none;" name="pageSize1" id="pageSize1687a0a70d16de"><option value="10" selected="selected">10</option><option value="20">20</option><option value="30">30</option></select></div>
+                            <div class="clear"></div>
                         </div>
-                        <div class="showing">
-                            <div style="font-weight:bold;padding-right:5px;">Showing</div>
-                            <div>1 - 10 of 96 &nbsp; &nbsp; | &nbsp; &nbsp;</div>
-                            <div class="display">Display</div>
-                        </div>
-                        <div id="container_pageSize1687a0a70d16de" class="custom-select small" style="width:47px;"><span id="select_pageSize1687a0a70d16de" class="arrow button" onclick="cddb.open('pageSize1687a0a70d16de',event)"></span>
-                            <div id="val_pageSize1687a0a70d16de" class="field" style="width:20px;" onclick="cddb.open('pageSize1687a0a70d16de',event)">10</div>
-                            <ul id="list_pageSize1687a0a70d16de" style="display:none;width:45px;" class="_custom_select_list">
-                                <li onclick="cddb.select('pageSize1687a0a70d16de', '10', this.innerHTML);ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&gt;__set', 'pageSize', this.innerHTML);">10</li>
-                                <li onclick="cddb.select('pageSize1687a0a70d16de', '20', this.innerHTML);ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&gt;__set', 'pageSize', this.innerHTML);">20</li>
-                                <li onclick="cddb.select('pageSize1687a0a70d16de', '30', this.innerHTML);ajax.doit('ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db-&gt;__set', 'pageSize', this.innerHTML);">30</li>
-                            </ul><select runat="server" data-fullid="mainform.clients.pageSize1" style="display:none;" name="pageSize1" id="pageSize1687a0a70d16de"><option value="10" selected="selected">10</option><option value="20">20</option><option value="30">30</option></select></div>
+
+                        <hr class="bottom_line" />
                         <div class="clear"></div>
+
+                        <script type="text/javascript">
+                            widgetClientCallback = 'ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db';
+
+                            // MODIFIED activateAccount function to use the existing confirmPopup
+                            function activateAccount(id, currentStatus) {
+                                const newStatusValue = currentStatus === 'Active' ? 0 : 1; // 0 for Deactive, 1 for Active
+                                const actionVerb = newStatusValue === 1 ? 'activate' : 'deactivate';
+                                const confirmPopupId = 'confirmPopup687a0a70ce5d7';
+                                const btnOKId = 'btnOK687a0a70cead4';
+
+                                // Set popup content
+                                $('#confirmPopupTitle').text('Confirm Action');
+                                $('#confirmPopupSubTitle').text(`Are you sure you want to ${actionVerb} this reseller?`);
+                                $('#confirmPopupContent').text(`This action will change the status of reseller ID ${id} to ${actionVerb === 'activate' ? 'Active' : 'Deactive'}.`);
+                                // Set button text
+                                $('#' + btnOKId).val(actionVerb.charAt(0).toUpperCase() + actionVerb.slice(1)); // Capitalize first letter
+
+                                // Remove any previous click handlers from btnOK to prevent multiple executions
+                                $('#' + btnOKId).off('click');
+
+                                // Attach new click handler for the OK button on the popup
+                                $('#' + btnOKId).on('click', function() {
+                                    popup.hide(confirmPopupId); // Hide the confirmation popup first
+                                    performStatusUpdate(id, newStatusValue); // Call the function to perform the actual AJAX update
+                                });
+
+                                // Show the confirmation popup
+                                popup.show(confirmPopupId);
+                            }
+
+                            // New function to handle the actual AJAX call for status update
+                            function performStatusUpdate(id, newStatus) {
+                                console.log(`Attempting to update reseller ID: ${id} to status: ${newStatus}`);
+
+                                $.ajax({
+                                    url: '/EDEPOZE_PROJECT/sandbox.edepoze.com/Resellers/update_reseller_status.php', // This path needs to be correct
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    data: {
+                                        id: id,
+                                        status: newStatus
+                                    },
+                                    success: function(response) {
+                                        if (response.status === 'success') {
+                                            // Use the existing noticePopup for success messages
+                                            $('#noticePopupTitle').text('Success');
+                                            $('#noticePopupSubTitle').text(response.message);
+                                            $('#noticePopupContent').text(''); // Clear any previous warning
+                                            popup.show('noticePopup687a0a70cecae');
+
+                                            loadResellers(); // Reload the table to reflect the changes
+                                        } else {
+                                            // Use the existing noticePopup for error messages
+                                            $('#noticePopupTitle').text('Error');
+                                            $('#noticePopupSubTitle').text('Failed to update status.');
+                                            $('#noticePopupContent').text(response.message || 'An unknown error occurred.'); // Display message from PHP or generic
+                                            popup.show('noticePopup687a0a70cecae');
+                                            console.error("Error updating status:", response.message);
+                                        }
+                                    },
+                                    error: function(xhr, status, error) {
+                                        // Use the existing noticePopup for AJAX errors
+                                        $('#noticePopupTitle').text('Network Error');
+                                        $('#noticePopupSubTitle').text('Could not connect to the server.');
+                                        $('#noticePopupContent').text(`Status: ${status}, Error: ${error}. Please check your internet connection or try again later.`);
+                                        popup.show('noticePopup687a0a70cecae');
+                                        console.error("AJAX Error:", status, error, xhr.responseText); // Log full response for detailed error
+                                    }
+                                });
+                            }
+
+                            function rowClick(event, link) {
+                                var target = event.target || event.srcElement;
+                                if (target.tagName != 'A' && target.tagName != 'SPAN') {
+                                    document.location = link;
+                                }
+                            }
+                        </script>
                     </div>
-
-                    <hr class="bottom_line" />
-                    <div class="clear"></div>
-
-                    <script type="text/javascript">
-                        widgetClientCallback = 'ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db';
-
-                        function activateAccount(id, confirm) {
-                            if (confirm) {
-                                ajax.doit(widgetClientCallback + '->activateAccount', id);
-                            } else {
-                                ajax.doit(widgetClientCallback + '->confirmActivateAccount', id);
-                            }
-                        }
-
-                        function rowClick(event, link) {
-                            var target = event.target || event.srcElement;
-                            if (target.tagName != 'A' && target.tagName != 'SPAN') {
-                                document.location = link;
-                            }
-                        }
-                    </script>
                 </div>
-            </div>
 
-            <script type="text/javascript">
-                clientCallback = '@';
+                <script type="text/javascript">
+                    clientCallback = '@';
 
-                function clickSearch(e) {
-                    if ((e || event).keyCode === 13) {
-                        searchValue();
+                    function clickSearch(e) {
+                        if ((e || event).keyCode === 13) {
+                            searchValue();
+                        }
                     }
-                }
 
-                function searchValue() {
-                    ajax.doit('->search');
-                }
-            </script>
+                    function searchValue() {
+                        ajax.doit('->search');
+                    }
 
+                    // Function to load reseller data via AJAX
+                    function loadResellers() {
+                        const tableBody = $('#resellersTableBody');
+                        // Select the second div within the .showing class for both top and bottom
+                        const globalCountDisplayTop = $('.showing:eq(0) div:eq(1)');
+                        const globalCountDisplayBottom = $('.showing:eq(1) div:eq(1)');
+
+                        tableBody.empty().append('<tr><td colspan="10" style="text-align: center;">Loading resellers...</td></tr>');
+                        globalCountDisplayTop.text('Loading... \u00A0 \u00A0 | \u00A0 \u00A0'); // Initial state for top global display
+                        globalCountDisplayBottom.text('Loading... \u00A0 \u00A0 | \u00A0 \u00A0'); // Initial state for bottom global display
+
+                        $.ajax({
+                            url: '/EDEPOZE_PROJECT/sandbox.edepoze.com/admin/get_resellers.php', // This path needs to be correct
+                            type: 'GET',
+                            dataType: 'json', // Expecting a JSON response
+                            success: function(response) {
+                                if (response.status === 'success') {
+                                    const resellers = response.data;
+                                    tableBody.empty(); // Clear existing rows
+
+                                    if (resellers.length > 0) {
+                                        const totalRecords = resellers.length;
+                                        // Update both global count displays
+                                        globalCountDisplayTop.text(`1 - ${totalRecords} of ${totalRecords} \u00A0 \u00A0 | \u00A0 \u00A0`);
+                                        globalCountDisplayBottom.text(`1 - ${totalRecords} of ${totalRecords} \u00A0 \u00A0 | \u00A0 \u00A0`);
+
+                                        resellers.forEach(reseller => {
+                                            const actionText = reseller.Status === 'Active' ? 'Deactivate' : 'Activate';
+                                            const row = `
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                    <td>${reseller.ID}</td>
+                                                    <td>${reseller['Reseller Name']}</td>
+                                                    <td>${reseller.Type}</td>
+                                                    <td>${reseller.Level}</td>
+                                                    <td>${reseller['Primary Contact']}</td>
+                                                    <td>${reseller['Reseller Since']}</td>
+                                                    <td>${reseller.Status}</td>
+                                                    <td>${reseller['Video Conf']}</td>
+                                                    <td>
+                                                        <div class="hide_links">
+                                                            <a href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Resellers/addresellers.php?ID=${reseller.ID}" onclick="_paq.push(['trackEvent', 'Reseller/Client Management', 'View/Edit', 'View/Edit Clicked'])">View/Edit</a>
+                                                            <a href="javascript:void(0)" onclick="activateAccount(${reseller.ID}, '${reseller.Status}');">
+                                                                ${actionText}
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            `;
+                                            tableBody.append(row);
+                                        });
+                                    } else {
+                                        tableBody.append('<tr><td colspan="10" style="text-align: center;">No resellers found.</td></tr>');
+                                        globalCountDisplayTop.text('0 - 0 of 0 \u00A0 \u00A0 | \u00A0 \u00A0');
+                                        globalCountDisplayBottom.text('0 - 0 of 0 \u00A0 \u00A0 | \u00A0 \u00A0');
+                                    }
+                                } else {
+                                    console.error("Error loading resellers:", response.message);
+                                    $('#resellersTableBody').empty().append('<tr><td colspan="10" style="text-align: center; color: red;">Error loading data: ' + (response.message || 'Unknown error') + '</td></tr>');
+                                    globalCountDisplayTop.text('0 - 0 of 0 \u00A0 \u00A0 | \u00A0 \u00A0');
+                                    globalCountDisplayBottom.text('0 - 0 of 0 \u00A0 \u00A0 | \u00A0 \u00A0');
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                console.error("AJAX Error:", status, error, xhr.responseText);
+                                $('#resellersTableBody').empty().append('<tr><td colspan="10" style="text-align: center; color: red;">Failed to fetch data from server. (Check console for details)</td></tr>');
+                                globalCountDisplayTop.text('0 - 0 of 0 \u00A0 \u00A0 | \u00A0 \u00A0');
+                                globalCountDisplayBottom.text('0 - 0 of 0 \u00A0 \u00A0 | \u00A0 \u00A0');
+                            }
+                        });
+                    }
+
+                    // Call loadResellers when the document is ready
+                    $(document).ready(function() {
+                        // Load resellers data when the page loads, assuming the Resellers tab is default active
+                        loadResellers();
+                    });
+                </script>
+
+            </div>
         </div>
     </div>
     <div class="footer">
@@ -540,7 +665,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'superadmin') {
                     s.parentNode.insertBefore(g, s);
                 },
                 error: function(error) {
-                    alert('error; ' + eval(error.object));
+                    console.error('Matomo error: ' + error.responseText);
                 }
             })
         })();
@@ -564,7 +689,6 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'superadmin') {
         $(function() {
             var dd = new DropDown($('#dd'));
             $(document).click(function() {
-                // all dropdowns
                 $('.wrapper-dropdown').removeClass('active');
             });
         });

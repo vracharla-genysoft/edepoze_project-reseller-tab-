@@ -1,0 +1,1254 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'superadmin') {
+    header("Location: index.php");
+    exit();
+}
+
+$resellerId = null;
+if (isset($_GET['ID']) && is_numeric($_GET['ID'])) {
+    $resellerId = (int)$_GET['ID'];
+}
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta content="text/javascript" http-equiv="Content-Script-Type" />
+    <title>Reseller Edit/Add</title>
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/asset/css/AdminLTE.min.css" rel="stylesheet" />
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/asset/css/custom-admin.css" rel="stylesheet" />
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/css/fonts.css" rel="stylesheet" />
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/css/common.css" rel="stylesheet" />
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/css/superadmin.css" rel="stylesheet" />
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/colorpicker/js_color_picker_v2.css" rel="stylesheet" />
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/imgeditor/imgeditor.css" rel="stylesheet" />
+    <link type="text/css" href="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/css/jquery-ui-1.11.0.min.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/jquery/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/polyfills.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/controls.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/common/js/popup.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/ajax.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/js/sha1.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/js/country_toggle.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/colorpicker/js_color_picker_v2.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/raphael.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/imgeditor/imgeditor.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/validators.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/common/js/customddb.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/jquery/jquery-ui-1.11.0.min.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/common/js/datetime.js"></script>
+    <script type="text/javascript" src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Framework/_engine/web/js/uploadbutton.js"></script>
+</head>
+
+<body runat="server" data-fullid="page" id="page687dcdc1afb5e">
+    <div id="header" style="">
+        <div id="custom_logo">
+            <a href="/admin" style="">eDepoze</a>
+        </div>
+
+        <div id="buttons-container">
+            <a href="https://app-sandbox.edepoze.com" target="_blank" class="buttonBlue">
+                <span class="buttonBlue_r">Go to Web App</span>
+            </a>
+        </div>
+
+        <div id="actions">
+            <div id="dd" class="wrapper-dropdown" tabindex="1">
+                <div class="userprofile" style="display: block;">
+                    <div class="profileImage">
+                        <p>S</p>
+                        <span>Super</span>
+                    </div>
+                </div>
+                <ul class="dropdown">
+                    <li>
+                        <a href="#">
+                            <i class="icon-remove"></i>
+                            <div href="javascript:void(0);" class="logout" onclick="ajax.doit('->logout'); _paq.push(['trackEvent', 'User', 'Logout', 'Logout Clicked'])" style="">
+                                <span>Logout</span>
+                                <div class="logout_sign" style="">
+                                    <div class="logout_sign_2" style=""></div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="myMarquee">
+        <div class="header-banner">
+            <span><img src="/EDEPOZE_PROJECT/sandbox.edepoze.com/Application/_includes/backend/img/gl-illustration.svg" alt="" /> &nbsp;&nbsp;Help us improve eDepoze! (Paid activity) &nbsp;&nbsp;
+                <a id="myAnchor" href="https://calendly.com/nguerrero90/globallink-research-session" target="_blank">Reserve your
+                spot</a>
+            </span>
+        </div>
+    </div>
+    <div class="main_wrapper_other">
+        <div id="menuTabBar" class="tab_menu">
+            <ul>
+                <li>
+                    <a href="/EDEPOZE_PROJECT/sandbox.edepoze.com/sbvrr1/superadmin.php" class="active">
+                        Resellers</a>
+                </li>
+                <li>
+                    <a href=" /admin/clients" class="">
+                        Clients</a>
+                    <ul class="tab_menu_sub">
+                        <li>
+                            <a href=" /admin/clients">
+                                Enterprise Clients</a>
+                        </li>
+                        <li>
+                            <a href=" /admin/courtclients">
+                                Court Clients</a>
+                        </li>
+                        <li>
+                            <a href=" /admin/tpauth/users">
+                                TPAuth Clients | Users</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href=" /admin/reports/user" class="">
+                        Reports</a>
+                    <ul class="tab_menu_sub">
+                        <li>
+                            <a href=" /admin/reports/user">
+                                User Report</a>
+                        </li>
+                        <li>
+                            <a href=" /admin/report/commission">
+                                Commission Report</a>
+                        </li>
+                        <li>
+                            <a href=" /admin/reports">
+                                Usage Report</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href=" /admin/notifications" class="">
+                        Notify Users</a>
+                </li>
+                <li>
+                    <a href=" /admin/admins" class="">
+                        Admins</a>
+                </li>
+                <li>
+                    <a href=" /admin/myaccount" class="">
+                        My Account</a>
+                </li>
+            </ul>
+            <div class="dropshadow"></div>
+        </div>
+        <div class="menuPlug"></div>
+        <div runat="server" data-fullid="confirmPopup" style="display:none;" class="popup" id="confirmPopup687dcdc1b0182">
+            <div class="shadow-popup"></div>
+            <div class="wrap-popup">
+                <div class="popup">
+                    <div class="top">
+                        <div class="right">
+                            <div class="middle"></div>
+                        </div>
+                    </div>
+                    <div class="popupcenter">
+                        <div class="right">
+                            <div class="middle">
+                                <h3 class="title">&nbsp;</h3>
+                                <div class="data">
+                                    <div class="row p_t22">
+                                        <h4 class="sub_title"></h4>
+                                    </div>
+                                    <div class="row">
+                                        <p class="warning_content"></p>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="option_chooser_wrapper">
+                                        <div class="option_chooser">
+                                            <input runat="server" data-fullid="confirmPopup.btnCancel" class="big-button gray" onclick="popup.hide('confirmPopup687dcdc1b0182');" name="btnCancel" value="Cancel" type="button" id="btnCancel687dcdc1b05a0" /> <input runat="server" data-fullid="confirmPopup.btnOK" class="big-button red" name="btnOK" type="button" id="btnOK687dcdc1b0664" /> </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="right">
+                            <div class="middle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div runat="server" data-fullid="noticePopup" style="display:none;" class="popup" id="noticePopup687dcdc1b0859">
+            <div class="popup-notice">
+                <div class="shadow-popup"></div>
+                <div class="wrap-popup">
+                    <div class="popup">
+
+                        <div class="popupcenter">
+                            <div class="right">
+                                <div class="middle">
+                                    <h3 class="title"></h3>
+                                    <div class="data">
+                                        <div class="row p_t22">
+                                            <h4 class="sub_title"></h4>
+                                        </div>
+                                        <div class="row">
+                                            <p class="warning_content"></p>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <div class="option_chooser_wrapper">
+                                            <div class="option_chooser">
+                                                <input runat="server" data-fullid="noticePopup.btnCancel" class="big-button gray" onclick="popup.hide('noticePopup687dcdc1b0859');" name="btnCancel" value="Close" type="button" id="btnCancel687dcdc1b0b9c" /> </div>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div runat="server" data-fullid="tutorialPopup" style="display:none;" class="popup" id="tutorialPopup687dcdc1b0d0e">
+            <div class="shadow-popup z120"></div>
+            <div class="wrap-popup viewTutorial thin filePopup">
+                <div class="popup">
+                    <div class="top">
+                        <div class="right">
+                            <div class="middle"></div>
+                        </div>
+                    </div>
+                    <div class="popupcenter">
+                        <div class="right">
+                            <div class="middle">
+                                <h3 class="title">&nbsp;</h3>
+                                <div class="btnClose" onclick="closeTutorialPlayer();"></div>
+                                <div class="data">
+                                    <div id="tutorialContainer">
+                                        <video id="tutorial_player" class="stopOnHide" controls="controls" preload="auto" autoplay="autoplay" width="100%">
+                                            <source src="" type="video/mp4"></source>
+                                            Your browser does not support video playback.
+                                        </video>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="right">
+                            <div class="middle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                function closeTutorialPlayer() {
+                    var videoPlayer = document.getElementById('tutorial_player');
+                    videoPlayer.pause();
+                    videoPlayer.src = '';
+                    videoPlayer.load();
+                    popup.hide('tutorialPopup687dcdc1b0d0e');
+                }
+            </script>
+        </div>
+        <div runat="server" data-fullid="mainform" class="content_top" id="mainform687dcdc1af8d7" data-reseller-id="<?php echo htmlspecialchars($resellerId); ?>">
+            <div runat="server" data-fullid="mainform.imgEditor" style="display:none;" class="imgeditor_main" id="imgEditor687dcdc1b12a6">
+                <div class="imgeditor_ltBorder"></div>
+                <div class="imgeditor_tBorder"></div>
+                <div class="imgeditor_rtBorder"></div>
+                <div class="imgeditor_lBorder"></div>
+                <div class="imgeditor_center">
+                    <div class="imgeditor_inputs_data">
+                        <p class="imgeditor_title">Image Editor</p>
+                        <p class="imgeditor_caption">Edit your image to fit into the webpage</p>
+                        <table class="imgeditor_param">
+                            <tr class="imgeditor_param_title">
+                                <td style="padding-left:0px;">width (px)</td>
+                                <td>height (px)</td>
+                                <td>bg color</td>
+                                <td>rotate</td>
+                                <td>zoom</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td style="padding-left:0px;"><span id="width_imgEditor687dcdc1b12a6">0</span> px</td>
+                                <td><span id="height_imgEditor687dcdc1b12a6">0</span> px</td>
+                                <td><span id="container_backgroundColor687dcdc1b16c9" style="" class=""><div style="width:103px;width:100px;width:100px;height:20px;border:1px solid #7F9DB9;padding:0;margin:0;"><input type="text" runat="server" data-fullid="mainform.imgEditor.backgroundColor" style="width:82px;font-size:12px;height:17px;border:0px;padding:2px 0 0 2px;margin:0;vertical-align:top;" name="backgroundColor" value="#FFFFFF" type="text" maxlength="7" id="backgroundColor687dcdc1b16c9" /><img style="padding-right:1px;padding-top:1px" width="15" height="18" src="/Framework/_engine/web/js/colorpicker/images/select_arrow.gif" onmouseover="this.src='/Framework/_engine/web/js/colorpicker/images/select_arrow_over.gif'" onmouseout="this.src='/Framework/_engine/web/js/colorpicker/images/select_arrow.gif'" onclick="showColorPicker(this, document.getElementById('backgroundColor687dcdc1b16c9'))" /></div></span></td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td style="padding:0;"><input type="text" runat="server" data-fullid="mainform.imgEditor.angle" style="float:none;" class="imgeditor_rotate_inp" name="angle" type="text" maxlength="6" id="angle687dcdc1b17b5" /><span>&#176;</span></td>
+                                            <td>
+                                                <div id="slider_rotate_imgEditor687dcdc1b12a6" class="imgeditor_slider">
+                                                    <div class="imgeditor_snap"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td style="padding:0;"><input type="text" runat="server" data-fullid="mainform.imgEditor.zoom" style="float:none;" class="imgeditor_zoom_inp" name="zoom" type="text" maxlength="6" id="zoom687dcdc1b1906" /><span>%</span></td>
+                                            <td>
+                                                <div id="slider_zoom_imgEditor687dcdc1b12a6" class="imgeditor_slider">
+                                                    <div class="imgeditor_snap"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <span id="container_isSmartCrop687dcdc1b1a76" style="display:none;"></span> </td>
+                                <td><span id="container_isTransparent687dcdc1b1b59" style="" class=""><input type="checkbox" checked="checked" runat="server" data-fullid="mainform.imgEditor.isTransparent" name="isTransparent" value="1" id="isTransparent687dcdc1b1b59" /><label for="isTransparent687dcdc1b1b59" style="" class=""> Transp. BG</label></span></td>
+                            </tr>
+                        </table>
+                        <div id="image_area_imgEditor687dcdc1b12a6" class="imgeditor_image"></div>
+                        <div class="imgeditor_panel_buttons">
+                            <input runat="server" data-fullid="mainform.imgEditor.btnUseThisImage" class="imgeditor_button" name="btnUseThisImage" value="use this image" type="button" id="btnUseThisImage687dcdc1b1c7d" /> <span id="btnUseOriginal687dcdc1b1fea"
+                                style="display:none;"></span> <input runat="server" data-fullid="mainform.imgEditor.btnCancel" class="imgeditor_button" name="btnCancel" value="cancel image edit" type="button" id="btnCancel687dcdc1b20ba" /> </div>
+                    </div>
+                </div>
+                <div class="imgeditor_rBorder"></div>
+                <div class="imgeditor_lbBorder"></div>
+                <div class="imgeditor_bBorder"></div>
+                <div class="imgeditor_rbBorder"></div>
+            </div>
+            <div class="content_control_wrapper">
+                <div class="content_control">
+                    <div class="breadcrumb">
+                        <p><a href="/EDEPOZE_PROJECT/sandbox.edepoze.com/sbvrr1/superadmin.php">Reseller Management</a> / Add new account</p>
+                    </div>
+                    <div class="option_block">
+                        <a href="/EDEPOZE_PROJECT/sandbox.edepoze.com/sbvrr1/superadmin.php" class="btn_gray m_r20">
+                            <span class="btn_gray_r">Cancel</span>
+                        </a>
+                        <a id="btnToStep2" href="javascript:;" onclick="toStep2(false);" class="btn_blue">
+                            <span class="btn_blue_r">Next</span>
+                        </a>
+
+                        <a id="btnToStep1" style="display:none;" href="javascript:;" onclick="toStep1();" class="btn_dark_gray m_r20">
+                            <span class="btn_dark_gray_r">Back</span>
+                        </a>
+                        <a id="btnToStep3" style="display:none;" href="javascript:;" onclick="toStep3();" class="btn_blue">
+                            <span class="btn_blue_r">Next</span>
+                        </a>
+                        <a id="btnBackToStep2" style="display:none;" href="javascript:;" onclick="toStep2(true);" class="btn_dark_gray m_r20">
+                            <span class="btn_dark_gray_r">Back</span>
+                        </a>
+                        <a id="btnSave" style="display:none;" href="javascript:;" onclick="save(0); _paq.push(['trackEvent', 'Resellers page', 'Add Reseller', 'Save Clicked'])" class="btn_blue">
+                            <span class="btn_blue_r">Save</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="main">
+                <div class="content">
+                    <div class="content_header">
+                        <h2>Add New Account</h2>
+                    </div>
+                    <p class="auth_title error">
+                        <span runat="server" data-fullid="mainform.valFields" id="valFields687dcdc1b27d0"></span> <span runat="server" data-fullid="mainform.valFields3" id="valFields3687dcdc1b28d0"></span>
+                        <div id="valFieldURL" class="error2 m_l65" style="display:none;"></div>
+                    </p>
+                    <div class="newaccount_body content_block m_t20">
+                        <ul id="tabContainer" class="add_account_step step1">
+                            <li id="tab1" class="active">Basic Information</li>
+                            <li id="tab2">Pricing Package</li>
+                            <li id="tab3">Admin Setup</li>
+                        </ul>
+
+                        <div runat="server" data-fullid="mainform.step1" style="display:none;" id="step1687dcdc1b2be8">
+                            <div class="reseller_settings">
+
+                                <span runat="server" data-fullid="mainform.step1.valFieldsUS" class="error2" id="valFieldsUS687dcdc1b2ea1"></span> <span runat="server" data-fullid="mainform.step1.valFieldsCA" class="error2" id="valFieldsCA687dcdc1b2f70"></span> <span runat="server" data-fullid="mainform.step1.valFieldsOT" class="error2" id="valFieldsOT687dcdc1b3040"></span>
+                                <h3 class="p_l40">Reseller Default Settings</h3>
+                                <div class="row p_220">
+                                    <label>Live Transcripts Email</label>
+                                    <input type="text" runat="server" data-fullid="mainform.step1.liveTranscriptsEmail" class="w_220" name="liveTranscriptsEmail" type="text" maxlength="255" id="liveTranscriptsEmail687dcdc1b315d" />
+                                    <div runat="server"
+                                        data-fullid="mainform.step1.valLiveTranscriptsEmailFormat" class="error2" id="valLiveTranscriptsEmailFormat687dcdc1b324a"></div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="clear"></div>
+                                <div class="row">
+                                    <label>Reseller Type</label>
+                                    <div id="container_resellerClass687dcdc1b33ce" class="custom-select big-arrow" style="width:232px;"><span id="select_resellerClass687dcdc1b33ce" class="arrow button" onclick="cddb.open('resellerClass687dcdc1b33ce',event)"></span>
+                                        <div id="val_resellerClass687dcdc1b33ce" class="field" style="width:205px;" onclick="cddb.open('resellerClass687dcdc1b33ce',event)">Scheduling Reseller</div>
+                                        <ul id="list_resellerClass687dcdc1b33ce" style="display:none;width:230px;" class="_custom_select_list">
+                                            <li onclick="cddb.select('resellerClass687dcdc1b33ce', 'Scheduling', this.innerHTML);">Scheduling Reseller</li>
+                                            <li onclick="cddb.select('resellerClass687dcdc1b33ce', 'Reseller', this.innerHTML);">eDiscovery Reseller</li>
+                                            <li onclick="cddb.select('resellerClass687dcdc1b33ce', 'Demo', this.innerHTML);">Demo Reseller</li>
+                                        </ul><select runat="server" data-fullid="mainform.step1.resellerClass" style="display:none;" name="resellerClass" id="resellerClass687dcdc1b33ce"><option value="Scheduling" selected="selected">Scheduling Reseller</option><option value="Reseller">eDiscovery Reseller</option><option value="Demo">Demo Reseller</option></select></div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="row">
+                                    <label>Reseller Level</label>
+                                    <div id="container_resellerLevel687dcdc1b34d7" class="custom-select big-arrow" style="width:232px;"><span id="select_resellerLevel687dcdc1b34d7" class="arrow button" onclick="cddb.open('resellerLevel687dcdc1b34d7',event)"></span>
+                                        <div id="val_resellerLevel687dcdc1b34d7" class="field" style="width:205px;" onclick="cddb.open('resellerLevel687dcdc1b34d7',event)">None</div>
+                                        <ul id="list_resellerLevel687dcdc1b34d7" style="display:none;width:230px;" class="_custom_select_list">
+                                            <li onclick="cddb.select('resellerLevel687dcdc1b34d7', 'Platinum', this.innerHTML);">Platinum</li>
+                                            <li onclick="cddb.select('resellerLevel687dcdc1b34d7', 'Gold', this.innerHTML);">Gold</li>
+                                            <li onclick="cddb.select('resellerLevel687dcdc1b34d7', 'Silver', this.innerHTML);">Silver</li>
+                                            <li onclick="cddb.select('resellerLevel687dcdc1b34d7', 'Bronze', this.innerHTML);">Bronze</li>
+                                            <li onclick="cddb.select('resellerLevel687dcdc1b34d7', 'None', this.innerHTML);">None</li>
+                                        </ul><select runat="server" data-fullid="mainform.step1.resellerLevel" style="display:none;" name="resellerLevel" id="resellerLevel687dcdc1b34d7"><option value="Platinum">Platinum</option><option value="Gold">Gold</option><option value="Silver">Silver</option><option value="Bronze">Bronze</option><option value="None" selected="selected">None</option></select></div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="row">
+                                    <label title="Change Client type from Reseller to Own Client">Change Client Type</label>
+                                    <div id="container_resellerUserType687dcdc1b37d1" class="custom-select big-arrow" style="width:232px;"><span id="select_resellerUserType687dcdc1b37d1" class="arrow button" onclick="cddb.open('resellerUserType687dcdc1b37d1',event)"></span>
+                                        <div id="val_resellerUserType687dcdc1b37d1" class="field" style="width:205px;" onclick="cddb.open('resellerUserType687dcdc1b37d1',event)">R</div>
+                                        <ul id="list_resellerUserType687dcdc1b37d1" style="display:none;width:230px;" class="_custom_select_list">
+                                            <li onclick="cddb.select('resellerUserType687dcdc1b37d1', 'R', this.innerHTML);">R</li>
+                                            <li onclick="cddb.select('resellerUserType687dcdc1b37d1', 'OC', this.innerHTML);">OC</li>
+                                        </ul><select runat="server" data-fullid="mainform.step1.resellerUserType" style="display:none;" name="resellerUserType" id="resellerUserType687dcdc1b37d1"><option value="R" selected="selected">R</option><option value="OC">OC</option></select></div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="client_settings">
+                                <h3 class="p_l40">Reseller Settings</h3>
+                                <div class="row custom_radio_box p_t28">
+                                    <input type="hidden" runat="server" data-fullid="mainform.step1.deactivated" name="deactivated" value="0" id="deactivated687dcdc1b3a97" /> <label id="lblActivated" class="custom_radio r_on" onclick="setDeactivated('0')">Active</label>
+                                    <label id="lblDeactivated" class="custom_radio " onclick="setDeactivated('1')">Deactivated</label>
+                                </div>
+                                <div class="clear"></div>
+                                <h3 class="p_l40">Video Conference</h3>
+                                <div class="row custom_radio_box p_t28">
+                                    <input type="hidden" runat="server" data-fullid="mainform.step1.videoDeactivated" name="videoDeactivated" value="0" id="videoDeactivated687dcdc1b3c24" /> <label id="lblVideoActivated" class="custom_radio r_on" onclick="setVideoDeactivated('0')">Enabled</label>
+                                    <label id="lblVideoDeactivated" class="custom_radio " onclick="setVideoDeactivated('1')">Disabled</label>
+                                </div>
+                                <div class="clear"></div>
+                                <div class="row w_220">
+                                    <label>Reseller Name*</label>
+                                    <input type="text" runat="server" data-fullid="mainform.step1.name" class="w_220" name="name" type="text" maxlength="255" id="name687dcdc1b3da7" /> </div>
+                                <div class="row w_125">
+                                    <label>Start Date*</label>
+                                    <div id="container_startDate687dcdc1b3ec4" style="" class="calendar_block w_220"><input type="text" runat="server" data-fullid="mainform.step1.startDate" class="calendar_field" name="startDate" value="07/21/2025" type="text" maxlength="22" id="startDate687dcdc1b3ec4" /></div> <span runat="server"
+                                        data-fullid="mainform.step1.valDate" style="display:none;" class="error2" id="valDate687dcdc1b401b">Date format is invalid</span> </div>
+                                <div class="row w_220">
+                                    <label>eDepoze Sales Representative</label>
+                                    <input type="text" runat="server" data-fullid="mainform.step1.salesRep" class="w_220" name="salesRep" type="text" maxlength="255" id="salesRep687dcdc1b4377" /> </div>
+                                <div class="clear"></div>
+                                <div class="row w_220">
+                                    <label><br />Primary Contact (Name)*</label>
+                                    <input type="text" runat="server" data-fullid="mainform.step1.contactName" class="w_220" name="contactName" type="text" maxlength="255" id="contactName687dcdc1b44b3" /> </div>
+                                <div class="row w_220">
+                                    <label><br />Primary Contact (Email)*</label>
+                                    <input type="text" runat="server" data-fullid="mainform.step1.contactEmail" class="w_220" name="contactEmail" type="text" maxlength="255" id="contactEmail687dcdc1b45c6" />
+                                    <div runat="server" data-fullid="mainform.step1.valEmailFormat"
+                                        class="error2" id="valEmailFormat687dcdc1b46a7"></div>
+                                </div>
+                                <div class="row w_220">
+                                    <label>Primary Contact (Phone)* <br /> <span class="subLabel">(eg. 1234567890, 555-555-5555)</span></label>
+                                    <input type="text" runat="server" data-fullid="mainform.step1.contactPhone" class="w_220" name="contactPhone" type="text" maxlength="40" id="contactPhone687dcdc1b481e" />
+                                    <div runat="server" data-fullid="mainform.step1.valPhone"
+                                        class="error2" id="valPhone687dcdc1b4930"></div>
+                                </div>
+                                <div class="clear"></div>
+
+                                <div class="row">
+                                    <label>Country*</label>
+                                    <select runat="server" data-fullid="mainform.step1.countryCode" class="w_229 countryToggler" name="countryCode" onchange="toggleCountry()" id="countryCode687dcdc1b4aad"><option value="" selected="selected"></option><option value="US">United States</option><option value="CA">Canada</option><option value="OT">Other</option></select> </div>
+                                <div class="clear"></div>
+
+                                <div class="row w_220">
+                                    <label>Address*</label>
+                                    <input type="text" runat="server" data-fullid="mainform.step1.address1" class="w_220" name="address1" type="text" maxlength="255" id="address1687dcdc1b4be5" /> </div>
+                                <div class="row p_220 w_275">
+                                    <label>&nbsp;</label>
+                                    <input type="text" runat="server" data-fullid="mainform.step1.address2" class="w_220" name="address2" type="text" maxlength="255" id="address2687dcdc1b4cfd" /> </div>
+                                <div class="clear"></div>
+                                <div class="row p_220">
+                                    <label>City*</label>
+                                    <input type="text" runat="server" data-fullid="mainform.step1.city" class="w_220" name="city" type="text" maxlength="255" id="city687dcdc1b4f1f" /> </div>
+
+                                <div class="row usaAddress">
+                                    <label>State*</label>
+                                    <select runat="server" data-fullid="mainform.step1.state" style="width:75px;" name="state" id="state687dcdc1b5045"><option value="" selected="selected"></option><option value="AK" selected="selected">AK</option><option value="AL">AL</option><option value="AR">AR</option><option value="AZ">AZ</option><option value="CA">CA</option><option value="CO">CO</option><option value="CT">CT</option><option value="DC">DC</option><option value="DE">DE</option><option value="FL">FL</option><option value="GA">GA</option><option value="HI">HI</option><option value="IA">IA</option><option value="ID">ID</option><option value="IL">IL</option><option value="IN">IN</option><option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option><option value="MA">MA</option><option value="MD">MD</option><option value="ME">ME</option><option value="MI">MI</option><option value="MN">MN</option><option value="MO">MO</option><option value="MS">MS</option><option value="MT">MT</option><option value="NC">NC</option><option value="ND">ND</option><option value="NE">NE</option><option value="NH">NH</option><option value="NJ">NJ</option><option value="NM">NM</option><option value="NV">NV</option><option value="NY">NY</option><option value="OH">OH</option><option value="OK">OK</option><option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option><option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option><option value="TX">TX</option><option value="UT">UT</option><option value="VA">VA</option><option value="VT">VT</option><option value="WA">WA</option><option value="WI">WI</option><option value="WV">WV</option><option value="WY">WY</option></select> </div>
+
+                                <div class="row canadaAddress">
+                                    <label>Province*</label>
+                                    <select runat="server" data-fullid="mainform.step1.province" style="width:75px;" name="province" id="province687dcdc1b5171"><option value="" selected="selected"></option><option value="AB">AB</option><option value="BC">BC</option><option value="MB">MB</option><option value="NB">NB</option><option value="NL">NL</option><option value="NS">NS</option><option value="NT">NT</option><option value="NU">NU</option><option value="ON">ON</option><option value="PE">PE</option><option value="QC">QC</option><option value="SK">SK</option><option value="YT">YT</option></select> </div>
+
+                                <div class="row otherAddress">
+                                    <label>Region*</label>
+                                    <input type="text" runat="server" data-fullid="mainform.step1.region" class="w_125" name="region" type="text" id="region687dcdc1b529b" /> </div>
+
+                                <div class="row p_l20 usaAddress">
+                                    <label>ZIP*</label>
+                                    <input type="text" runat="server" data-fullid="mainform.step1.ZIP" class="w_125" onkeyup="this.value = this.value.replace(/[^\d]/g, '');" name="ZIP" type="text" maxlength="10" id="ZIP687dcdc1b53ef" /> </div>
+
+                                <div class="row p_l20 otherAddress canadaAddress">
+                                    <label>Postal Code*</label>
+                                    <input type="text" runat="server" data-fullid="mainform.step1.postCode" class="w_125" name="postCode" type="text" maxlength="10" id="postCode687dcdc1b554f" /> </div>
+
+                                <div class="clear"></div>
+
+                            </div>
+
+                            <div class="branding_info">
+                                <h3 class="p_l40">Branding Info</h3>
+                                <div class="row">
+                                    <label>Reseller Description</label>
+                                    <textarea runat="server" data-fullid="mainform.step1.description" class="w_220 h_139" name="description" id="description687dcdc1b587e"></textarea> </div>
+                                <div class="row branding_content" style="width:652px;padding-left:28px;">
+                                    <h5 class="p_t0">Website Look &amp; Feel</h5>
+                                    <div id="bannerDemo" class="webview_demo" tag="div" style="width:645px;">
+                                        <p runat="server" data-fullid="mainform.step1.logoLabel" id="logoLabel687dcdc1b5a2b">Reseller Logo</p> <input type="hidden" runat="server" data-fullid="mainform.step1.logoName" name="logoName" id="logoName687dcdc1b5b45" /> <span id="logoImage687dcdc1b5c64" style="display:none;"></span>
+                                        <span id="container_bannerColor687dcdc1b5d80" style="display:none;" class=""><input type="text" runat="server" data-fullid="mainform.step1.bannerColor" name="bannerColor" type="text" maxlength="7" id="bannerColor687dcdc1b5d80" /><input type="button" value="Color picker" onclick="showColorPicker(this, document.getElementById('bannerColor687dcdc1b5d80'))"></span> <a href="javascript:;" onclick="showColorPicker(this,document.getElementById('bannerColor687dcdc1b5d80'),document.getElementById('bannerDemo'));" class="btn_blue" style="width:160px;margin-right:20px;">
+                                            <span class="btn_blue_r">Change banner color</span>
+                                        </a>
+                                        <span id="container_bannerTextColor687dcdc1b5f17" style="display:none;" class=""><input type="text" runat="server" data-fullid="mainform.step1.bannerTextColor" name="bannerTextColor" type="text" maxlength="7" id="bannerTextColor687dcdc1b5f17" /><input type="button" value="Color picker" onclick="showColorPicker(this, document.getElementById('bannerTextColor687dcdc1b5f17'))"></span> <a href="javascript:;" style="width:160px;margin-right:20px;" onclick="showColorPicker(this,document.getElementById('bannerTextColor687dcdc1b5f17'),null,chooseTextColor);" class="btn_blue">
+                                            <span>Change text color</span>
+                                        </a>
+                                        <div id="textDemo" class="text" style="margin-right:20px; color: ">Sample</div>
+                                    </div>
+                                    <div class="website_config" style="width:640px;">
+                                        <div class="f_l">
+                                            <h5>Reseller logo</h5>
+                                            <a id="container_btnUploadLogo687dcdc1b613e" style="" class="btn_blue"><input type="file" runat="server" data-fullid="mainform.step1.btnUploadLogo" style="position:absolute;width:60px;z-index:1;filter:alpha(opacity:0);opacity:0;" onclick="closeColorPicker()" onmouseover=";ajax._getFormByTarget('frame_' + this.id); uploadbutton.initialize('btnUploadLogo687dcdc1b613e', 0, 0);" size="1" onchange=";ajax.submit('ClickBlocks\\Web\\UI\\POM\\ImgEditor@imgEditor687dcdc1b12a6->uploadImage_btnUploadLogo687dcdc1b613e', 'frame_btnUploadLogo687dcdc1b613e')" name="btnUploadLogo687dcdc1b613e" id="btnUploadLogo687dcdc1b613e" /><span class="btn_blue_r">Browse</span></a> </div>
+                                        <div class="url_config" style="width:440px;">
+                                            <h5>URL*</h5>
+                                            <span class="url_label">sandbox.edepoze.com/</span>
+                                            <input type="text" runat="server" data-fullid="mainform.step1.URL" class="url_input" name="URL" type="text" maxlength="255" id="URL687dcdc1b6322" />
+                                            <div runat="server" data-fullid="mainform.step1.valURL"
+                                                id="valURL687dcdc1b6448"></div>
+                                            <div runat="server" data-fullid="mainform.step1.valUrlUniq" class="error2 m_l86" id="valUrlUniq687dcdc1b65b4"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script>
+                            </script>
+                        </div>
+                        <div runat="server" data-fullid="mainform.step2" style="display:none;" id="step2687dcdc1b7753"> <em class="block_title">Define the Reseller Pricing Package:</em>
+                            <div class="account_parameter_block">
+                                <div class="row w_166">
+                                    <label>Subscription Fee (per user)</label>
+                                    <input type="text" runat="server" data-fullid="mainform.step2.subscriptionFee" class="w_166 money_field" name="subscriptionFee" value="$" type="text" maxlength="11" id="subscriptionFee687dcdc1b7b71" />
+                                    <div runat="server"
+                                        data-fullid="mainform.step2.valFloatSubscriptionFee" class="error2" id="valFloatSubscriptionFee687dcdc1b7c32"></div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div runat="server" data-fullid="mainform.step3" style="display:none;" id="step3687dcdc1b7e28"> <em class="block_title">Setup login credentials</em>
+                            <div class="row w_229">
+                                <label>First Name*</label>
+                                <input type="text" runat="server" data-fullid="mainform.step3.firstName" class="w_218" autofocus="autofocus" name="firstName" type="text" id="firstName687dcdc1b8076" /> <span runat="server" data-fullid="mainform.step3.valFirstName"
+                                    id="valFirstName687dcdc1b8136"></span> </div>
+                            <div class="row w_229">
+                                <label>Last Name*</label>
+                                <input type="text" runat="server" data-fullid="mainform.step3.lastName" class="w_218" name="lastName" type="text" id="lastName687dcdc1b8229" /> <span runat="server" data-fullid="mainform.step3.valLastName" id="valLastName687dcdc1b82dd"></span> </div>
+                            <div class="row w_487">
+                                <label>Email*</label>
+                                <input type="text" runat="server" data-fullid="mainform.step3.email" class="w_487" name="email" type="text" id="email687dcdc1b83ce" />
+                                <div runat="server" data-fullid="mainform.step3.valEmail" class="error2" id="valEmail687dcdc1b8489"></div>
+                            </div>
+                            <div class="row w_487">
+                                <label>Username*</label>
+                                <input type="text" runat="server" data-fullid="mainform.step3.username" class="w_487" name="username" type="text" id="username687dcdc1b85d1" />
+                                <div runat="server" data-fullid="mainform.step3.valUsernameUniq" class="error2"
+                                    id="valUsernameUniq687dcdc1b8695"></div>
+                            </div>
+                            <div class="row w_487">
+                                <label>Password*</label>
+                                <input type="password" runat="server" data-fullid="mainform.step3.password" class="w_487" onfocus="showPasswordRequirements();" onblur="hidePasswordRequirements();" name="password" type="password" id="password687dcdc1b8805" /> <input type="hidden" runat="server" data-fullid="mainform.step3.passauth" name="passauth" id="passauth687dcdc1b88df" />
+                                <div runat="server" data-fullid="mainform.step3.valpassword" class="error2" id="valpassword687dcdc1b89c2"></div>
+                                <div runat="server" data-fullid="mainform.step3.valcomparepassword" class="error2" id="valcomparepassword687dcdc1b8c56"></div>
+                                <div runat="server" data-fullid="mainform.step3.valPasswordCriteria" class="error2" id="valPasswordCriteria687dcdc1b8db5"></div>
+                                <div id="valFieldPassword" class="error2" style="display:none;"></div>
+                            </div>
+                            <div class="row">
+                                <label>Retype Password*</label>
+                                <input type="password" runat="server" data-fullid="mainform.step3.confirmPassword" class="w_487" name="confirmPassword" type="password" id="confirmPassword687dcdc1b8f21" /> <span runat="server" data-fullid="mainform.step3.valconfirmpassword"
+                                    id="valconfirmpassword687dcdc1b8ff9"></span> </div>
+                            <div id="passwordRequirements">
+                                <section id="reqTitle">
+                                    <h2>Password Requirements:</h2>
+                                </section>
+                                <section id="reqBody">
+                                    <p>Password must contain 8 characters, and must contain at least one character from three of the categories below:</p>
+                                    <ul>
+                                        <li>Uppercase letter (A-Z)</li>
+                                        <li>Lowercase letter (a-z)</li>
+                                        <li>Number (0-9)</li>
+                                        <li>Symbols (#@!$%&:;)</li>
+                                    </ul>
+                                </section>
+                            </div>
+
+                            <script type="text/javascript">
+                                function showPasswordRequirements() {
+                                    $('#passwordRequirements').show();
+                                }
+
+                                function hidePasswordRequirements() {
+                                    $('#passwordRequirements').hide();
+                                }
+                            </script>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="content_control_wrapper content_control_bottom">
+                <div class="content_control">
+                    <div class="option_block">
+                        <a href="/EDEPOZE_PROJECT/sandbox.edepoze.com/sbvrr1/superadmin.php" class="btn_gray m_r20">
+                            <span class="btn_gray_r">Cancel</span>
+                        </a>
+                        <a id="bbtnToStep1" style="display:none;" href="javascript:;" onclick="toStep1();" class="btn_dark_gray m_r20">
+                            <span class="btn_dark_gray_r">Back</span>
+                        </a>
+                        <a id="bbtnToStep2" href="javascript:;" onclick="toStep2(false);" class="btn_blue">
+                            <span class="btn_blue_r">Next</span>
+                        </a>
+                        <a id="bbtnBackToStep2" style="display:none;" href="javascript:;" onclick="toStep2(true);" class="btn_dark_gray m_r20">
+                            <span class="btn_dark_gray_r">Back</span>
+                        </a>
+                        <a id="bbtnSave" style="display:none;" href="javascript:;" onclick="save(0); _paq.push(['trackEvent', 'Resellers page', 'Add Reseller', 'Save Clicked'])" class="btn_blue">
+                            <span class="btn_blue_r">Save</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                // Get reseller ID from data attribute set by PHP
+                var currentResellerId = $('#mainform687dcdc1af8d7').data('reseller-id');
+
+                $(document).ready(function() {
+                    var b = document.getElementById('bannerDemo');
+                    if (b) b.style.backgroundColor = controls.$('bannerColor687dcdc1b5d80').value;
+                    controls.display('step1687dcdc1b2be8', ''); // Ensure Step 1 is visible on load
+
+                    bindEvent();
+
+                    // If in edit mode, load existing data
+                    if (currentResellerId) {
+                        loadResellerDataForEdit(currentResellerId);
+                        // Change "Add New Account" to "Edit Reseller"
+                        $('h2:contains("Add New Account")').text('Edit Reseller');
+                        $('p:contains("Add new account")').text('Reseller Management / Edit account');
+                    }
+                });
+
+                function bindEvent() {
+                    $(".money_field").not(".bindEvent").bind('focus', function() {
+                        var input = $(this);
+                        if (input.val() != '' && input.val().substring(0, 1) == '$') {
+                            input.val(input.val().substring(1));
+                        }
+                    }).bind('blur', function() {
+                        var input = $(this);
+                        if (input.val() == '' || input.val().substring(0, 1) != '$') {
+                            input.val('$' + input.val());
+                        }
+                    }).bind('keyup', function() {
+                        if (this.value.search(/[^0-9\.]/g) >= 0)
+                            this.value = this.value.replace(/[^0-9\.]/g, '');
+                    }).addClass('bindEvent');
+                }
+
+                function setDeactivated(val) {
+                    var hid = controls.$('deactivated687dcdc1b3a97');
+                    hid.value = val;
+
+                    controls.removeClass('lblActivated', 'r_on');
+                    controls.removeClass('lblDeactivated', 'r_on');
+
+                    if (val == '0') {
+                        controls.addClass('lblActivated', 'r_on');
+                    } else
+                        controls.addClass('lblDeactivated', 'r_on');
+                }
+
+                function setVideoDeactivated(val) {
+                    var hid = controls.$('videoDeactivated687dcdc1b3c24');
+                    hid.value = val;
+
+                    controls.removeClass('lblVideoActivated', 'r_on');
+                    controls.removeClass('lblVideoDeactivated', 'r_on');
+
+                    if (val == '0') {
+                        controls.addClass('lblVideoActivated', 'r_on');
+                    } else
+                        controls.addClass('lblVideoDeactivated', 'r_on');
+                }
+
+                function toStep1() {
+                    changeTab(0, 1);
+                    // ajax.doitSync('->toStep1', ajax.getFormValues()); // Commented out for client-side UI transition
+                }
+
+                function toStep2(isBack) {
+                    if (isBack) {
+                        changeTab(0, 2);
+                        // ajax.doitSync('->toStep2', ajax.getFormValues(), isBack); // Commented out for client-side UI transition
+                    } else {
+                        clearInputsClass();
+                        var flag3 = (controls.$('valFieldURL') != null);
+                        var flag2 = flag3 ? controls.$('URL687dcdc1b6322').value != '' : true;
+                        var flag1 = validators.validate('step1,countryUS,countryCA,countryOT', 'error', '');
+                        var flag = flag1 && flag2;
+
+                        if (flag3 && !flag2) {
+                            controls.display('valFieldURL', '');
+                            controls.addClass('URL687dcdc1b6322', 'error');
+                        }
+
+                        if (flag) {
+                            changeTab(0, 2); // Transition to Step 2 on successful validation
+                            // ajax.doitSync('->toStep2', ajax.getFormValues(), isBack); // Commented out for client-side UI transition
+                        } else {
+                            changeTab(0, 1); // Stay on Step 1 if validation fails
+                        }
+                    }
+                }
+
+                function toStep3() {
+                    $(".money_field").each(function() {
+                        if ($(this).val() == '$') $(this).val('$0');
+                    });
+                    if (validators.validate('step2', 'error', '')) {
+                        changeTab(0, 3); // Transition to Step 3 on successful validation
+                        // ajax.doitSync('->toStep3', ajax.getFormValues()); // Commented out for client-side UI transition
+                    } else {
+                        $(".money_field").each(function() {
+                            if ($(this).val() == '') $(this).val('$' + $(this).val());
+                        });
+                        changeTab(0, 2); // Stay on Step 2 if validation fails
+                    }
+                };
+
+                btnLock = false;
+
+                function save(mode) {
+                    var flag;
+                    clearInputsClass();
+
+                    // Aggregate validation results from all steps
+                    var flagStep1Valid = validators.validate('step1', 'error', '');
+                    var flagStep2Valid = validators.validate('step2', 'error', '');
+                    var flagStep3Valid = validators.validate('step3', 'error', '');
+
+                    // Special handling for URL field, which has a div outside the standard validators.add groups
+                    var flagUrlPresent = (controls.$('valFieldURL') != null) ? controls.$('URL687dcdc1b6322').value != '' : true;
+                    if ((controls.$('valFieldURL') != null) && !flagUrlPresent) {
+                        controls.display('valFieldURL', '');
+                        controls.addClass('URL687dcdc1b6322', 'error');
+                    }
+
+                    // Country-specific fields validation (already part of step1 group, but re-emphasized here for clarity if needed)
+                    var flagCountryValid = validators.validate('countryUS', 'error', '') &&
+                                           validators.validate('countryCA', 'error', '') &&
+                                           validators.validate('countryOT', 'error', '');
+
+                    // Overall validation flag
+                    flag = flagStep1Valid && flagStep2Valid && flagStep3Valid && flagCountryValid && flagUrlPresent;
+
+                    setInputsClassOfValidators(); // Apply error classes visually
+
+                    if (!btnLock && flag) {
+                        // Apply SHA1 hashing if passwords are provided (client-side hashing is generally NOT recommended for security)
+                        // Ideally, send plain password over HTTPS and hash on the server using password_hash().
+                        if ($('#password687dcdc1b8805').val().length >= 1) {
+                            $('#passauth687dcdc1b88df').val(sha1($('#password687dcdc1b8805').val()));
+                            // The next line updates the actual input field value to the hash, which is sent.
+                            // Note: This replaces the plain text password in the form with its hash.
+                            $('#password687dcdc1b8805').val(sha1($('#password687dcdc1b8805').val()));
+                        }
+                        if ($('#confirmPassword687dcdc1b8f21').val().length >= 1) {
+                            $('#confirmPassword687dcdc1b8f21').val(sha1($('#confirmPassword687dcdc1b8f21').val()));
+                        }
+                        btnLock = true; // Disable button to prevent multiple submissions
+
+                        // Collect all form data manually
+                        // The existing ajax.getFormValues() might not capture all fields correctly or in the desired format
+                        // We will build a data object that matches the expected PHP $_POST keys
+                        var formData = {
+                            ID: currentResellerId, // Use the dynamically set ID for edit mode
+                            name: $('#name687dcdc1b3da7').val(),
+                            resellerClass: $('#resellerClass687dcdc1b33ce').val(),
+                            resellerLevel: $('#resellerLevel687dcdc1b34d7').val(),
+                            contactName: $('#contactName687dcdc1b44b3').val(),
+                            contactEmail: $('#contactEmail687dcdc1b45c6').val(),
+                            contactPhone: $('#contactPhone687dcdc1b481e').val(),
+                            startDate: $('#startDate687dcdc1b3ec4').val(), // MM/DD/YYYY
+                            deactivated: $('#deactivated687dcdc1b3a97').val(), // '0' for active, '1' for deactivated
+                            videoDeactivated: $('#videoDeactivated687dcdc1b3c24').val(), // '0' for enabled, '1' for disabled
+                            liveTranscriptsEmail: $('#liveTranscriptsEmail687dcdc1b315d').val(),
+                            address1: $('#address1687dcdc1b4be5').val(),
+                            address2: $('#address2687dcdc1b4cfd').val(),
+                            city: $('#city687dcdc1b4f1f').val(),
+                            countryCode: $('#countryCode687dcdc1b4aad').val(),
+                            state: $('#state687dcdc1b5045').val(), // For US
+                            province: $('#province687dcdc1b5171').val(), // For CA
+                            region: $('#region687dcdc1b529b').val(), // For OT
+                            ZIP: $('#ZIP687dcdc1b53ef').val(), // For US
+                            postCode: $('#postCode687dcdc1b554f').val(), // For CA/OT
+                            salesRep: $('#salesRep687dcdc1b4377').val(),
+                            URL: $('#URL687dcdc1b6322').val(),
+                            description: $('#description687dcdc1b587e').val(),
+                            bannerColor: $('#bannerColor687dcdc1b5d80').val(),
+                            bannerTextColor: $('#bannerTextColor687dcdc1b5f17').val(),
+                            logoName: $('#logoName687dcdc1b5b45').val(),
+                            subscriptionFee: $('#subscriptionFee687dcdc1b7b71').val(), // Pricing package
+                            firstName: $('#firstName687dcdc1b8076').val(), // Admin setup
+                            lastName: $('#lastName687dcdc1b8229').val(),
+                            email: $('#email687dcdc1b83ce').val(),
+                            username: $('#username687dcdc1b85d1').val(),
+                            password: $('#password687dcdc1b8805').val(), // Note: This will be the SHA1 hash if client-side hashing is used
+                            confirmPassword: $('#confirmPassword687dcdc1b8f21').val() // Note: This will be the SHA1 hash if client-side hashing is used
+                        };
+
+                        // Initiate AJAX call to save_reseller.php
+                        $.ajax({
+                            url: '/EDEPOZE_PROJECT/sandbox.edepoze.com/admin/save_reseller.php', // Corrected absolute path
+                            type: 'POST',
+                            data: formData, // Send the collected form data
+                            dataType: 'json', // Expect JSON response
+                            success: function(response) {
+                                // SUCCESS CALLBACK from save_reseller.php
+                                if (response.status === 'success') {
+                                    // Use a custom modal/popup instead of alert
+                                    popup.show('noticePopup687dcdc1b0859'); // Show a generic notice popup
+                                    $('#noticePopup687dcdc1b0859 .warning_content').text(response.message); // Set message
+
+                                    if (response.redirect_url) {
+                                        // Delay redirect slightly to allow user to see the success message
+                                        setTimeout(function() {
+                                            window.location.href = response.redirect_url;
+                                        }, 1500); // Redirect after 1.5 seconds
+                                    }
+                                } else {
+                                    // Use a custom modal/popup instead of alert
+                                    popup.show('noticePopup687dcdc1b0859'); // Show a generic notice popup
+                                    $('#noticePopup687dcdc1b0859 .warning_content').text('Error: ' + response.message); // Set message
+
+                                    btnLock = false; // Re-enable button on server-side validation error
+                                    // Optionally, switch to the tab where the server reported an error
+                                    if (response.error_step) { // Assuming server can send 'error_step'
+                                        changeTab(mode, response.error_step);
+                                    }
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                // ERROR CALLBACK for AJAX communication issues
+                                popup.show('noticePopup687dcdc1b0859'); // Show a generic notice popup
+                                let errorMessage = 'AJAX Communication Error: Could not reach the server or unexpected response. Status: ' + status + ', Error: ' + error;
+
+                                // Check if the error status is 409 (Conflict)
+                                if (xhr.status === 409) {
+                                    try {
+                                        const responseJson = JSON.parse(xhr.responseText);
+                                        if (responseJson.status === 'error' && responseJson.message) {
+                                            errorMessage = 'Error: ' + responseJson.message;
+                                            // Optionally, if you want to highlight the specific field, you can use responseJson.error_field
+                                            if (responseJson.error_field === 'URL') {
+                                                // This assumes you have a way to visually mark the URL input as erroneous.
+                                                // For example: $('#URL687dcdc1b6322').addClass('error-highlight');
+                                            }
+                                        }
+                                    } catch (e) {
+                                        console.error("Error parsing JSON from 409 response:", e);
+                                    }
+                                } else if (xhr.responseJSON && xhr.responseJSON.message) {
+                                    // Handle other server-side errors that return JSON with a message
+                                    errorMessage = 'Error: ' + xhr.responseJSON.message;
+                                }
+
+                                $('#noticePopup687dcdc1b0859 .warning_content').text(errorMessage); // Set message
+
+                                console.error("AJAX Error:", xhr, status, error);
+                                btnLock = false; // Re-enable button on communication error
+                            }
+                        });
+
+                        // Clear password fields immediately (they've already been used by formData)
+                        $('#password687dcdc1b8805').val('');
+                        $('#confirmPassword687dcdc1b8f21').val('');
+
+                    } else { // Client-side validation failed
+                        var selTab;
+                        if (!flagStep1Valid || !flagUrlPresent) {
+                            selTab = 1;
+                        } else if (!flagStep2Valid) {
+                            selTab = 2;
+                        } else if (!flagStep3Valid) {
+                            selTab = 3;
+                        }
+                        if (selTab) {
+                            changeTab(mode, selTab); // Switch to the first tab with an error
+                        }
+                    }
+                }
+
+                // mode: 0-add, 1-edit
+                function changeTab(mode, step) {
+                    closeColorPicker();
+                    var curstep;
+                    if (controls.hasClass('tab1', 'active')) curstep = 1; //'step1';
+                    else if (controls.hasClass('tab2', 'active')) curstep = 2; //'step2';
+                    else if (controls.hasClass('tab3', 'active')) curstep = 3; //'step3';
+
+                    // Prevent skipping steps if current step is invalid (only in add mode)
+                    if (mode == 0 && curstep < step && !validators.validate('step' + curstep, 'error', '', true)) {
+                        return false;
+                    }
+
+                    // Update active tab visual
+                    controls.removeClass('tab1', 'active');
+                    controls.removeClass('tab2', 'active');
+                    controls.removeClass('tab3', 'active');
+                    controls.addClass('tab' + step, 'active');
+
+                    // Hide all step content areas
+                    controls.display('step1687dcdc1b2be8', 'none');
+                    controls.display('step2687dcdc1b7753', 'none');
+                    controls.display('step3687dcdc1b7e28', 'none');
+
+                    // Update tab container class and display relevant step
+                    switch (step) {
+                        case 1:
+                            controls.display('step1687dcdc1b2be8', '');
+                            controls.removeClass('tabContainer', 'step2');
+                            controls.removeClass('tabContainer', 'step3');
+                            controls.addClass('tabContainer', 'step1');
+                            break;
+                        case 2:
+                            controls.display('step2687dcdc1b7753', '');
+                            controls.removeClass('tabContainer', 'step1');
+                            controls.removeClass('tabContainer', 'step3');
+                            controls.addClass('tabContainer', 'step2');
+                            break;
+                        case 3:
+                            controls.display('step3687dcdc1b7e28', '');
+                            controls.removeClass('tabContainer', 'step1');
+                            controls.removeClass('tabContainer', 'step2');
+                            controls.addClass('tabContainer', 'step3');
+                            break;
+                    }
+
+                    // Update button visibility based on the current step
+                    controls.display('btnToStep1', 'none');
+                    controls.display('btnToStep2', 'none');
+                    controls.display('btnToStep3', 'none');
+                    controls.display('btnBackToStep2', 'none');
+                    controls.display('btnSave', 'none');
+
+                    controls.display('bbtnToStep1', 'none');
+                    controls.display('bbtnToStep2', 'none');
+                    controls.display('bbtnToStep3', 'none');
+                    controls.display('bbtnBackToStep2', 'none');
+                    controls.display('bbtnSave', 'none');
+
+                    switch (step) {
+                        case 1:
+                            controls.display('btnToStep2', '');
+                            controls.display('bbtnToStep2', '');
+                            break;
+                        case 2:
+                            controls.display('btnToStep1', '');
+                            controls.display('btnToStep3', '');
+                            controls.display('bbtnToStep1', '');
+                            controls.display('bbtnToStep3', '');
+                            break;
+                        case 3:
+                            controls.display('btnBackToStep2', '');
+                            controls.display('btnSave', '');
+                            controls.display('bbtnBackToStep2', '');
+                            controls.display('bbtnSave', '');
+                            break;
+                    }
+
+                    bindEvent(); // Re-bind events for newly visible elements (e.g., money fields)
+                }
+
+                function actionUrl() {
+                    var cid = 'URL687dcdc1b6322';
+                    action(cid);
+                }
+
+                function action(cid) {
+                    if (typeof cid == 'undefined') cid = 'username687dcdc1b85d1';
+                    validators.results = new Array();
+                    validators.results[cid] = false;
+                    setInputsClassOfValidators();
+                }
+
+                function unaction() {};
+
+                function setInputsClassOfValidators() {
+                    for (cid in validators.results) {
+                        el = controls.$(cid);
+                        if (!(el)) continue;
+                        if (!validators.results[cid]) {
+                            controls.addClass(el, 'error');
+                        }
+                    }
+                }
+
+                function clearInputsClass() {
+                    if (controls.$('valFieldPassword') != null)
+                        controls.display('valFieldPassword', 'none');
+                    if (controls.$('valFieldURL') != null)
+                        controls.display('valFieldURL', 'none');
+                    var el = controls.$('password687dcdc1b8805');
+                    if (el != 'undefined' && el != null && el.className != 'null') {
+                        controls.removeClass(el, 'error');
+                    }
+
+                    for (vid in validators.validators) {
+                        if (typeof validators.validators[vid] != 'object') continue;
+                        for (cid in validators.validators[vid].cids) {
+                            if (!(el = controls.$(validators.validators[vid].cids[cid]))) continue;
+                            if (el == 'undefined' || el == null) continue;
+                            if (controls.hasClass(el, 'error'))
+                                controls.removeClass(el, 'error');
+                        }
+                    }
+                }
+
+                function deleteAccount(confirm) {
+                    if (confirm) {
+                        ajax.doit('->deleteAccount');
+                    } else {
+                        ajax.doit('->confirmDeleteAccount');
+                    }
+                }
+
+                function chooseTextColor(value) {
+                    controls.$('textDemo').style.color = value;
+                }
+
+                function validatePasswordCriteria(ctrls, mode) {
+                    var flag = false;
+                    var ctrlPwd = controls.$(ctrls[0]);
+
+                    if (ctrlPwd.value.length === 0) {
+                        $("#valFieldPassword").html("**Password is required.**").show();
+                        return false;
+                    } else {
+                        flag = (ctrlPwd.value.length >= 8);
+                        var l = new RegExp('[a-z]+').test(ctrlPwd.value);
+                        var u = new RegExp('[A-Z]+').test(ctrlPwd.value);
+                        var d = new RegExp('[0-9]+').test(ctrlPwd.value);
+                        var s = new RegExp('[!@#$%&*_\\-+=|<>(){}\\[\\],.:;]+').test(ctrlPwd.value);
+                        var t = (l + u + d + s >= 3);
+                        flag = flag && t;
+
+                        if (!flag) {
+                            $("#valFieldPassword").html("**Password is required.**").show();
+                        } else {
+                            validators.results[ctrls[0]] = flag;
+                            $("#valFieldPassword").html("**Please choose a stronger password.**").hide();
+                        }
+                        return flag;
+                    }
+                }
+
+                // New function to load reseller data for editing
+                function loadResellerDataForEdit(id) {
+                    $.ajax({
+                        url: '/EDEPOZE_PROJECT/sandbox.edepoze.com/admin/get_reseller_details.php?ID=' + id, // Corrected absolute path
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.status === 'success' && response.data) {
+                                const reseller = response.data;
+                                // Populate form fields with fetched data
+                                $('#name687dcdc1b3da7').val(reseller['Reseller Name']);
+                                // Select the correct option for dropdowns
+                                cddb.select('resellerClass687dcdc1b33ce', reseller.Type, reseller.Type + ' Reseller');
+                                cddb.select('resellerLevel687dcdc1b34d7', reseller.Level, reseller.Level);
+                                // Assuming reseller.UserType exists in your DB schema for this dropdown
+                                // If not, you might need to adjust the backend query or this line.
+                                cddb.select('resellerUserType687dcdc1b37d1', reseller.UserType || 'R', reseller.UserType || 'R');
+
+                                // Set radio buttons for status and video conf
+                                setDeactivated(reseller.Status === 'Active' ? '0' : '1');
+                                setVideoDeactivated(reseller['Video Conf'] === 'Enabled' ? '0' : '1');
+
+                                $('#liveTranscriptsEmail687dcdc1b315d').val(reseller.LiveTranscriptsEmail || '');
+                                $('#contactName687dcdc1b44b3').val(reseller['Primary Contact']);
+                                $('#contactEmail687dcdc1b45c6').val(reseller.PrimaryContactEmail);
+                                $('#contactPhone687dcdc1b481e').val(reseller.PrimaryContactPhone);
+                                $('#startDate687dcdc1b3ec4').val(reseller['Reseller Since']); // Already MM/DD/YYYY from PHP API
+                                $('#salesRep687dcdc1b4377').val(reseller.SalesRep || '');
+
+                                // Address fields
+                                cddb.select('countryCode687dcdc1b4aad', reseller.CountryCode, reseller.CountryCode); // Select country
+                                toggleCountry(); // Trigger country specific field display
+                                $('#address1687dcdc1b4be5').val(reseller.Address1);
+                                $('#address2687dcdc1b4cfd').val(reseller.Address2 || '');
+                                $('#city687dcdc1b4f1f').val(reseller.City);
+
+                                // Populate country-specific fields
+                                if (reseller.CountryCode === 'US') {
+                                    cddb.select('state687dcdc1b5045', reseller.StateProvinceRegion, reseller.StateProvinceRegion);
+                                    $('#ZIP687dcdc1b53ef').val(reseller.ZipPostalCode || '');
+                                } else if (reseller.CountryCode === 'CA') {
+                                    cddb.select('province687dcdc1b5171', reseller.StateProvinceRegion, reseller.StateProvinceRegion);
+                                    $('#postCode687dcdc1b554f').val(reseller.ZipPostalCode || '');
+                                } else if (reseller.CountryCode === 'OT') {
+                                    $('#region687dcdc1b529b').val(reseller.StateProvinceRegion || '');
+                                    $('#postCode687dcdc1b554f').val(reseller.ZipPostalCode || '');
+                                }
+
+                                $('#description687dcdc1b587e').val(reseller.Description || '');
+                                $('#URL687dcdc1b6322').val(reseller.UrlSlug);
+                                $('#bannerColor687dcdc1b5d80').val(reseller.BannerColor || '#FFFFFF');
+                                $('#bannerTextColor687dcdc1b5f17').val(reseller.BannerTextColor || '#000000');
+                                $('#logoName687dcdc1b5b45').val(reseller.LogoName || '');
+
+                                // Update banner demo colors
+                                var b = document.getElementById('bannerDemo');
+                                if (b) b.style.backgroundColor = reseller.BannerColor || '#FFFFFF';
+                                controls.$('textDemo').style.color = reseller.BannerTextColor || '#000000';
+
+
+                                // Pricing Package
+                                // Ensure subscriptionFee is formatted with '$' if it's not already
+                                let subFee = parseFloat(reseller.SubscriptionFee || '0').toFixed(2);
+                                $('#subscriptionFee687dcdc1b7b71').val('$' + subFee);
+
+                                // Admin Setup (only if an admin user is associated with the reseller)
+                                // This part assumes the reseller details API also returns the admin user's details.
+                                // If admin users are in a separate table, you'd need a JOIN or separate API.
+                                if (reseller.AdminFirstName) { // Assuming these keys exist in your reseller object if admin details are returned
+                                    $('#firstName687dcdc1b8076').val(reseller.AdminFirstName);
+                                    $('#lastName687dcdc1b8229').val(reseller.AdminLastName);
+                                    $('#email687dcdc1b83ce').val(reseller.AdminEmail);
+                                    $('#username687dcdc1b85d1').val(reseller.AdminUsername);
+                                    // Passwords are NOT loaded for security reasons. User must re-enter if changing.
+                                    // Hide password requirements if in edit mode and no password change is intended
+                                    $('#passwordRequirements').hide();
+                                } else {
+                                    // If no admin user is associated or details not fetched, clear these fields for new entry
+                                    $('#firstName687dcdc1b8076').val('');
+                                    $('#lastName687dcdc1b8229').val('');
+                                    $('#email687dcdc1b83ce').val('');
+                                    $('#username687dcdc1b85d1').val('');
+                                    $('#password687dcdc1b8805').val('');
+                                    $('#confirmPassword687dcdc1b8f21').val('');
+                                }
+
+
+                                // Adjust button visibility for edit mode
+                                // The 'mode' parameter for changeTab (0 for add, 1 for edit)
+                                // is used to control validation behavior in changeTab.
+                                changeTab(1, 1); // Set to edit mode (1) and show step 1
+                            } else {
+                                console.error("Error fetching reseller details:", response.message);
+                                popup.show('noticePopup687dcdc1b0859');
+                                $('#noticePopup687dcdc1b0859 .warning_content').text('Error: ' + (response.message || 'Could not load reseller details.'));
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX Error loading reseller details:", status, error);
+                            popup.show('noticePopup687dcdc1b0859');
+                            $('#noticePopup687dcdc1b0859 .warning_content').text('Failed to fetch reseller details from server.');
+                        }
+                    });
+                }
+            </script>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer_data">
+            <p class="copyright">Copyright &copy; 2025 eDepoze,LLC </p>
+        </div>
+    </div>
+    <script type="text/javascript">
+        (function($) {
+            $(document).ready(function() {
+                $(window).scroll(function() {
+                    if ($(this).scrollTop() > 124) {
+                        $('#menuTabBar').addClass('small');
+                        $('.menuPlug').show();
+                    } else {
+                        $('#menuTabBar').removeClass('small');
+                        $('.menuPlug').hide();
+                    }
+                });
+            });
+        })(jQuery);
+
+        /*Matomo Integration*/
+        var _paq = window._paq = window._paq || [];
+        (function() {
+            $.ajax({
+                async: false,
+                url: '/Application/_includes/backend/js/matomo_config.php',
+                datatype: "json",
+                crossDomain: true,
+                success: function(matomositeid_json) {
+                    var u = "https://techops-analytics.transperfect.com/";
+                    _paq.push(['setTrackerUrl', u + 'matomo.php']);
+                    _paq.push(['setSiteId', JSON.parse(matomositeid_json)]);
+                    var d = document,
+                        g = d.createElement('script'),
+                        s = d.getElementsByTagName('script')[0];
+                    g.async = true;
+                    g.src = u + 'matomo.js';
+                    s.parentNode.insertBefore(g, s);
+                },
+                error: function(error) {
+                    // Changed alert to console.error for better practice
+                    console.error('Matomo error: ' + error.responseText);
+                }
+            })
+        })();
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+    </script>
+    <script type="text/javascript">
+        function DropDown(el) {
+            this.dd = el;
+            this.initEvents();
+        }
+        DropDown.prototype = {
+            initEvents: function() {
+                var obj = this;
+                obj.dd.on('click', function(event) {
+                    $(this).addClass('active');
+                    event.stopPropagation();
+                });
+            }
+        }
+        $(function() {
+            var dd = new DropDown($('#dd'));
+            $(document).click(function() {
+                // all dropdowns
+                $('.wrapper-dropdown').removeClass('active');
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        cddb.initialize('pageSize1687a0a70d16de');
+        cddb.initialize('pageSize687a0a70d0dc0');
+        popup.initialize('createTPAuthUser687a0a70cf6c6', 0);
+        popup.initialize('tutorialPopup687a0a70cf17e', 0);
+        popup.initialize('noticePopup687a0a70cecae', 0);
+        popup.initialize('confirmPopup687a0a70ce5d7', 0);
+        ajax.initViewStates();
+    </script>
+</body>
+
+</html>
