@@ -31,7 +31,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'superadmin') {
 <body runat="server" data-fullid="page" id="page687a0a70cddc4">
     <div id="header" style="">
         <div id="custom_logo">
-            <a href="/admin" style="">eDepoze</a>
+            <a href="/EDEPOZE_PROJECT/sandbox.edepoze.com/sbvrr1/superadmin.php" style="">eDepoze</a>
         </div>
 
         <div id="buttons-container">
