@@ -31,7 +31,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'superadmin') {
 <body runat="server" data-fullid="page" id="page687a0a70cddc4">
     <div id="header" style="">
         <div id="custom_logo">
-            <a href="/EDEPOZE_PROJECT/sandbox.edepoze.com/sbvrr1/superadmin.php" style="">eDepoze</a>
+            <a href="/admin" style="">eDepoze</a>
         </div>
 
         <div id="buttons-container">
@@ -317,7 +317,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'superadmin') {
                         var lastname = $("#lastname687a0a70cfc09").val();
                         var email = $("#email687a0a70cfd22").val();
                         $.ajax({
-                            url: '/admin/user_registration', // Replace with the actual path to your PHP script
+                            url: '/admin/user_registration',
                             type: 'POST',
                             data: {
                                 'FirstName': firstname,
@@ -451,39 +451,31 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'superadmin') {
                         <script type="text/javascript">
                             widgetClientCallback = 'ClickBlocks\\Web\\UI\\POM\\WidgetClients@clients687a0a70d04db';
 
-                            // MODIFIED activateAccount function to use the existing confirmPopup
                             function activateAccount(id, currentStatus) {
-                                const newStatusValue = currentStatus === 'Active' ? 0 : 1; // 0 for Deactive, 1 for Active
+                                const newStatusValue = currentStatus === 'Active' ? 0 : 1;
                                 const actionVerb = newStatusValue === 1 ? 'activate' : 'deactivate';
                                 const confirmPopupId = 'confirmPopup687a0a70ce5d7';
                                 const btnOKId = 'btnOK687a0a70cead4';
 
-                                // Set popup content
                                 $('#confirmPopupTitle').text('Confirm Action');
                                 $('#confirmPopupSubTitle').text(`Are you sure you want to ${actionVerb} this reseller?`);
                                 $('#confirmPopupContent').text(`This action will change the status of reseller ID ${id} to ${actionVerb === 'activate' ? 'Active' : 'Deactive'}.`);
-                                // Set button text
-                                $('#' + btnOKId).val(actionVerb.charAt(0).toUpperCase() + actionVerb.slice(1)); // Capitalize first letter
+                                $('#' + btnOKId).val(actionVerb.charAt(0).toUpperCase() + actionVerb.slice(1));
 
-                                // Remove any previous click handlers from btnOK to prevent multiple executions
-                                $('#' + btnOKId).off('click');
-
-                                // Attach new click handler for the OK button on the popup
+                                $('#' + btnOKId).off('click'); // Important: Remove previous handlers
                                 $('#' + btnOKId).on('click', function() {
-                                    popup.hide(confirmPopupId); // Hide the confirmation popup first
-                                    performStatusUpdate(id, newStatusValue); // Call the function to perform the actual AJAX update
+                                    popup.hide(confirmPopupId);
+                                    performStatusUpdate(id, newStatusValue);
                                 });
 
-                                // Show the confirmation popup
                                 popup.show(confirmPopupId);
                             }
 
-                            // New function to handle the actual AJAX call for status update
                             function performStatusUpdate(id, newStatus) {
                                 console.log(`Attempting to update reseller ID: ${id} to status: ${newStatus}`);
 
                                 $.ajax({
-                                    url: '/EDEPOZE_PROJECT/sandbox.edepoze.com/Resellers/update_reseller_status.php', // This path needs to be correct
+                                    url: '/EDEPOZE_PROJECT/sandbox.edepoze.com/Resellers/update_reseller_status.php',
                                     type: 'POST',
                                     dataType: 'json',
                                     data: {
@@ -492,29 +484,25 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'superadmin') {
                                     },
                                     success: function(response) {
                                         if (response.status === 'success') {
-                                            // Use the existing noticePopup for success messages
                                             $('#noticePopupTitle').text('Success');
                                             $('#noticePopupSubTitle').text(response.message);
-                                            $('#noticePopupContent').text(''); // Clear any previous warning
+                                            $('#noticePopupContent').text('');
                                             popup.show('noticePopup687a0a70cecae');
-
-                                            loadResellers(); // Reload the table to reflect the changes
+                                            loadResellers();
                                         } else {
-                                            // Use the existing noticePopup for error messages
                                             $('#noticePopupTitle').text('Error');
                                             $('#noticePopupSubTitle').text('Failed to update status.');
-                                            $('#noticePopupContent').text(response.message || 'An unknown error occurred.'); // Display message from PHP or generic
+                                            $('#noticePopupContent').text(response.message || 'An unknown error occurred on the server.');
                                             popup.show('noticePopup687a0a70cecae');
                                             console.error("Error updating status:", response.message);
                                         }
                                     },
                                     error: function(xhr, status, error) {
-                                        // Use the existing noticePopup for AJAX errors
                                         $('#noticePopupTitle').text('Network Error');
-                                        $('#noticePopupSubTitle').text('Could not connect to the server.');
-                                        $('#noticePopupContent').text(`Status: ${status}, Error: ${error}. Please check your internet connection or try again later.`);
+                                        $('#noticePopupSubTitle').text('Could not connect to the server or invalid response.');
+                                        $('#noticePopupContent').text(`Status: ${status}, Error: ${error}. Server Response: ${xhr.responseText || 'No response text'}. Please check server logs.`);
                                         popup.show('noticePopup687a0a70cecae');
-                                        console.error("AJAX Error:", status, error, xhr.responseText); // Log full response for detailed error
+                                        console.error("AJAX Error:", status, error, xhr.responseText);
                                     }
                                 });
                             }
@@ -542,29 +530,26 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'superadmin') {
                         ajax.doit('->search');
                     }
 
-                    // Function to load reseller data via AJAX
                     function loadResellers() {
                         const tableBody = $('#resellersTableBody');
-                        // Select the second div within the .showing class for both top and bottom
                         const globalCountDisplayTop = $('.showing:eq(0) div:eq(1)');
                         const globalCountDisplayBottom = $('.showing:eq(1) div:eq(1)');
 
                         tableBody.empty().append('<tr><td colspan="10" style="text-align: center;">Loading resellers...</td></tr>');
-                        globalCountDisplayTop.text('Loading... \u00A0 \u00A0 | \u00A0 \u00A0'); // Initial state for top global display
-                        globalCountDisplayBottom.text('Loading... \u00A0 \u00A0 | \u00A0 \u00A0'); // Initial state for bottom global display
+                        globalCountDisplayTop.text('Loading... \u00A0 \u00A0 | \u00A0 \u00A0');
+                        globalCountDisplayBottom.text('Loading... \u00A0 \u00A0 | \u00A0 \u00A0');
 
                         $.ajax({
-                            url: '/EDEPOZE_PROJECT/sandbox.edepoze.com/admin/get_resellers.php', // This path needs to be correct
+                            url: '/EDEPOZE_PROJECT/sandbox.edepoze.com/admin/get_resellers.php',
                             type: 'GET',
-                            dataType: 'json', // Expecting a JSON response
+                            dataType: 'json',
                             success: function(response) {
                                 if (response.status === 'success') {
                                     const resellers = response.data;
-                                    tableBody.empty(); // Clear existing rows
+                                    tableBody.empty();
 
                                     if (resellers.length > 0) {
                                         const totalRecords = resellers.length;
-                                        // Update both global count displays
                                         globalCountDisplayTop.text(`1 - ${totalRecords} of ${totalRecords} \u00A0 \u00A0 | \u00A0 \u00A0`);
                                         globalCountDisplayBottom.text(`1 - ${totalRecords} of ${totalRecords} \u00A0 \u00A0 | \u00A0 \u00A0`);
 
@@ -614,9 +599,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'superadmin') {
                         });
                     }
 
-                    // Call loadResellers when the document is ready
                     $(document).ready(function() {
-                        // Load resellers data when the page loads, assuming the Resellers tab is default active
                         loadResellers();
                     });
                 </script>

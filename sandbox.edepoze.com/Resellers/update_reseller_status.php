@@ -1,91 +1,111 @@
 <?php
-// update_reseller_status.php
+// File path: C:\xampp\htdocs\EDEPOZE_PROJECT\sandbox.edepoze.com\Resellers\update_reseller_status.php
 
-// --- 1. Configure Error Reporting ---
-// IMPORTANT: For production, set display_errors to 0 and ensure error_log is configured.
-// For debugging: uncomment the first two lines, comment out the last three.
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-error_reporting(E_ALL); // Report all errors for logging
-ini_set('log_errors', 1); // Enable error logging
-ini_set('error_log', __DIR__ . '/../logs/php_error.log'); // <-- ABSOLUTELY CHANGE THIS PATH to a writable log file on your server, ideally outside your web root.
+// --- CRITICAL: PHP Error Reporting Configuration (TEMPORARY FOR DEBUGGING) ---
+// For debugging, set display_errors to 1. REMEMBER TO CHANGE IT BACK TO 0 FOR PRODUCTION!
+ini_set('display_errors', 1);         // TEMPORARILY display errors on the page
+ini_set('display_startup_errors', 1);   // TEMPORARILY display startup errors
+error_reporting(E_ALL);                // Report all types of errors
+ini_set('log_errors', 1);              // Enable error logging
+// Ensure this path is correct and writable by your web server (Apache/PHP user)
+ini_set('error_log', __DIR__ . '/../logs/php_error.log');
+
 
 session_start();
 
-// --- 2. Set Content-Type Header Early ---
-// This ensures the browser expects JSON right away, helping prevent the "<" error.
+// Set Content-Type header immediately to ensure valid JSON response
 header('Content-Type: application/json');
 
-// --- 3. Security Check: Superadmin Role ---
+// --- Security Check: Superadmin Role ---
 if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'superadmin') {
-    // If unauthorized, return JSON error and exit
+    error_log("Unauthorized access attempt to update_reseller_status.php by user: " . ($_SESSION['username'] ?? 'N/A') . ". Role: " . ($_SESSION['role'] ?? 'N/A') . " from IP: " . ($_SERVER['REMOTE_ADDR'] ?? 'N/A'));
     echo json_encode(['status' => 'error', 'message' => 'Unauthorized access. Please log in as a superadmin.']);
+    exit(); // Stop execution
+}
+
+// --- Database Connection (Using MySQLi, as your other files use it) ---
+// You mentioned your other files use MySQLi, so let's stick to that for consistency.
+// If you have a separate database_connection.php that sets up PDO, you'd use that.
+// For now, I'll put the MySQLi connection directly here.
+
+$servername = "localhost";
+$username = "root"; // Your MySQL username
+$password = "";     // Your MySQL password
+$dbname = "edepoze_Db"; // The database name
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    error_log("Database Connection Failed in update_reseller_status.php: " . $conn->connect_error);
+    echo json_encode(['status' => 'error', 'message' => 'Internal server error: Could not connect to the database.']);
     exit();
 }
 
-// --- 4. Include Database Connection ---
-// Adjust this path based on your project's structure.
-// __DIR__ refers to the directory of the current file.
-// Example: If your database_connection.php is one level up from "Resellers" folder:
-require_once __DIR__ . '/../path/to/your/database_connection.php'; 
-// Or if it's in a completely different common folder, adjust accordingly.
-// e.g., require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/database_connection.php';
 
-// Ensure the $pdo object is available after including the connection file.
-// If your connection file directly creates $pdo, great. Otherwise, ensure it does.
-if (!isset($pdo) || !$pdo instanceof PDO) {
-    error_log("Database connection variable \$pdo not set or not a PDO object in update_reseller_status.php.");
-    echo json_encode(['status' => 'error', 'message' => 'Internal server error: Database connection not established.']);
-    exit();
-}
-
-
-// --- 5. Process POST Request ---
+// --- Handle POST Request ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Sanitize and validate input from the AJAX request
     $resellerId = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
-    $status = filter_input(INPUT_POST, 'status', FILTER_VALIDATE_INT); // 0 for Deactive, 1 for Active
+    // The status from JS is 0 for Deactivate, 1 for Activate.
+    // Your DB 'status' column is BOOLEAN, which maps to 1 for TRUE (Active) and 0 for FALSE (Deactivated).
+    $status = filter_input(INPUT_POST, 'status', FILTER_VALIDATE_INT);
 
-    // Input validation
-    if ($resellerId === null || $resellerId === false || ($status !== 0 && $status !== 1)) {
-        echo json_encode(['status' => 'error', 'message' => 'Invalid input parameters. Reseller ID or status is missing/incorrect.']);
+    // Detailed input validation to help debug
+    if ($resellerId === null || $resellerId === false) {
+        error_log("Invalid or missing 'id' parameter received: " . var_export($_POST['id'] ?? 'N/A', true) . " from IP: " . ($_SERVER['REMOTE_ADDR'] ?? 'N/A'));
+        echo json_encode(['status' => 'error', 'message' => 'Invalid or missing Reseller ID.']);
+        $conn->close(); // Close connection before exiting
+        exit();
+    }
+    if ($status !== 0 && $status !== 1) { // Checks if status is strictly 0 or 1
+        error_log("Invalid or missing 'status' parameter received for ID {$resellerId}: " . var_export($_POST['status'] ?? 'N/A', true) . " from IP: " . ($_SERVER['REMOTE_ADDR'] ?? 'N/A'));
+        echo json_encode(['status' => 'error', 'message' => 'Invalid or missing status value.']);
+        $conn->close(); // Close connection before exiting
         exit();
     }
 
     try {
-        // --- 6. Prepare and Execute SQL Statement ---
-        // IMPORTANT: Replace 'your_resellers_table' and 'status_column'
-        // with the actual names from your database.
-        $stmt = $pdo->prepare("UPDATE your_resellers_table SET status_column = :status WHERE ID = :id");
-        $stmt->bindParam(':status', $status, PDO::PARAM_INT);
-        $stmt->bindParam(':id', $resellerId, PDO::PARAM_INT);
-
-        if ($stmt->execute()) {
-            if ($stmt->rowCount() > 0) {
-                // Success: Dynamic message based on new status
-                $action = ($status === 1) ? 'activated' : 'deactivated';
-                echo json_encode(['status' => 'success', 'message' => "Reseller successfully {$action}!"]);
-            } else {
-                // No rows affected: Reseller not found or status already matches
-                echo json_encode(['status' => 'error', 'message' => 'Reseller not found or its status is already as requested.']);
-            }
-        } else {
-            // SQL execution failed (e.g., malformed query, but caught by PDO::ATTR_ERRMODE_EXCEPTION usually)
-            // This block might be less frequently hit if PDO is set to throw exceptions.
-            $errorInfo = $stmt->errorInfo();
-            error_log("SQL execution failed for ID {$resellerId}, Status {$status}: " . print_r($errorInfo, true));
-            echo json_encode(['status' => 'error', 'message' => 'Failed to update reseller status in database. Please check server logs for details.']);
+        // --- Prepare and Execute the SQL Statement ---
+        // CORRECTED: Using 'resellers' table and 'status' column
+        $sql = "UPDATE resellers SET status = ? WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        
+        if (!$stmt) {
+            error_log("MySQLi Prepare Failed: " . $conn->error);
+            echo json_encode(['status' => 'error', 'message' => 'Database prepare error.']);
+            $conn->close();
+            exit();
         }
-    } catch (PDOException $e) {
-        // --- 7. Catch Database Exceptions ---
-        // Log the actual database error for debugging
-        error_log("PDO Exception for ID {$resellerId}, Status {$status}: " . $e->getMessage());
-        echo json_encode(['status' => 'error', 'message' => 'A database error occurred during the update process.']);
-    }
-} else {
-    // --- 8. Handle Invalid Request Method ---
-    echo json_encode(['status' => 'error', 'message' => 'Invalid request method. Only POST requests are allowed for this operation.']);
-}
 
-// --- 9. Omit Closing PHP Tag (Best Practice) ---
-// This helps prevent accidental whitespace/newlines after the tag that could
-// break JSON output.
+        // Bind parameters securely (s for string, i for integer)
+        $stmt->bind_param("ii", $status, $resellerId); // Both are integers (0 or 1, and the ID)
+
+        // Execute the statement
+        $stmt->execute();
+
+        // Check if any rows were affected
+        if ($stmt->affected_rows > 0) {
+            $actionMessage = ($status === 1) ? 'activated' : 'deactivated';
+            echo json_encode(['status' => 'success', 'message' => "Reseller ID {$resellerId} successfully {$actionMessage}!"]);
+        } else {
+            // No rows affected: This could mean the ID doesn't exist, or the status was already the requested value.
+            error_log("No rows affected for ID {$resellerId}, new status {$status}. Reseller may not exist or status is already set. IP: " . ($_SERVER['REMOTE_ADDR'] ?? 'N/A'));
+            echo json_encode(['status' => 'error', 'message' => 'Reseller not found or its status is already as requested.']);
+        }
+
+        $stmt->close(); // Close the statement
+        $conn->close(); // Close the connection
+
+    } catch (Exception $e) { // Catch any general exceptions
+        error_log("General Error for ID {$resellerId}, Status {$status}: " . $e->getMessage() . " | SQL: " . $sql . " | IP: " . ($_SERVER['REMOTE_ADDR'] ?? 'N/A'));
+        echo json_encode(['status' => 'error', 'message' => 'An unexpected error occurred during the update process.']);
+        $conn->close(); // Ensure connection is closed on error
+    }
+
+} else {
+    // Handle cases where the request method is not POST
+    error_log("Invalid request method: " . $_SERVER['REQUEST_METHOD'] . " received for update_reseller_status.php from IP: " . ($_SERVER['REMOTE_ADDR'] ?? 'N/A'));
+    echo json_encode(['status' => 'error', 'message' => 'Invalid request method. Only POST requests are allowed.']);
+}
